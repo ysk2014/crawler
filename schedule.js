@@ -10,4 +10,5 @@ var task = function() {
 	});
 }
 
+console.log('程序开始');
 task();
