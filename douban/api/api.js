@@ -24,12 +24,12 @@ var douban = function (opts) {
 
 //获取电影条目信息
 douban.prototype.getMovieBaseInfo = function(id) {
-	var url = this.base_url + id;
+	var url = this.base_url + 'subject/' + id;
 	return spider(url);
 }
 // 电影剧照
 douban.prototype.getMoviePhotos = function() {
-	var url = this.base_url + id +'/photos';
+	var url = this.base_url + 'subject/' + id +'/photos';
 	return spider(url);
 }
 //搜索电影
