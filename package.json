@@ -12,6 +12,7 @@
     "bluebird": "^3.4.1",
     "cheerio": "^0.20.0",
     "iconv-lite": "^0.4.13",
+    "lodash": "^4.13.1",
     "mysql": "^2.11.1",
     "node-schedule": "^1.1.1",
     "nodemailer": "^2.5.0",

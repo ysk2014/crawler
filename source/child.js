@@ -25,7 +25,7 @@ process.on('message', function(info) {
 		// 获取下载资源数据，过滤错误的信息
 		var data = results.map(function(result) {
 			if (result.error == 0) {
-				return {data:result.data, form: result.form};
+				return result;
 			}
 		});
 
