@@ -48,7 +48,7 @@ source.getDownloads = function() {
 				child.on('error', function(err) {
 					resolve({
 						error: 1,
-						data: '开启电影id为'+id+'的下载资源的子进程失败，原因：'+err
+						data: '开启电影id为'+d.id+'的下载资源的子进程失败，原因：'+err
 					});
 				});
 			});

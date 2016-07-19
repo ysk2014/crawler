@@ -48,7 +48,9 @@ douban.getInTheaters = function() {
 		return filterCtrl.filterID(data);
 	}).then(function(data) {
 		if (data.length>0) {
-			return Promise.all(data.map(openChild(id)));
+			return Promise.all(data.map(function(id){ 
+				return openChild(id);
+			}));
 		} else {
 			return '';
 		}

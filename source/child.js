@@ -22,10 +22,13 @@ var getDownload = function(info) {
 process.on('message', function(info) {
 	getDownload(info).then(function(results) {
 
+		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
-		var data = results.map(function(result) {
+		results.forEach(function(result) {
 			if (result.error == 0) {
-				return result;
+				data.push(result);
+			} else if (result.error == 1) {
+				errors.push(result);
 			}
 		});
 
@@ -69,7 +72,7 @@ process.on('message', function(info) {
 			}
 		}
 
-		process.send(data);
+		process.send({data:data, errors: errors});
 		process.disconnect();
 	});
 });
