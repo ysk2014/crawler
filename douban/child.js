@@ -1,50 +1,78 @@
-
 var path = require('path');
 
-var config = require(path.join(__dirname, '../global'));
+require(path.join(__dirname, '../global'));
 
-var api = require(path.join(__dirname, 'api/index'));
+var common = require(path.join(__dirname, '../common'));
 
-var getInTheaters = function() {
-	api.getInTheaters()
-		.then(function(data) {
-			if (data.length>0) {
-				var errors = [], results = [];
+var api = require(path.join(__dirname, 'api'));
 
-				data.forEach(function(d) {
-					if (d.error) 
-						errors.push(d.data);
-					else 
-						results.push(d.data);
+var movieModel = require(path.join(ROOT, 'models/movie'));
 
-				});
+var taskModel = require(path.join(ROOT, 'models/task'));
 
-				if (errors.length>0) {
-					logger.error(JSON.stringify(errors));
-				}
+/**
+* 对电影数据进行处理，使其符合存储数据库的格式
+*
+* @param object;
+* 
+* @return object
+*/
+var filterData = function(data) {
 
-				if (results.length>0) {
-					logger.info(JSON.stringify(results));
-				}
-				
-			} else {
-				logger.info('本次没有新增数据');
-				console.log('本次没有新增数据');
-			}
+	data.casts = data.casts.map(function(d) {
+		return d.name;
+	}).join();
 
-			process.send('本次爬豆瓣事件结束');
-			process.disconnect();
+	data.directors = data.directors.map(function(d) {
+		return d.name;
+	}).join();
 
-		}).catch(function(err) {
-			logger.error('意外错误：'+err);
-			console.log(err);
+	data.countries = data.countries.join();
 
-			process.send('');
-			process.disconnect();
-		});
+	data.genres = data.genres.join();
+
+	data.images = JSON.stringify(data.images);
+
+	data.rating = data.rating.average;
+
+	data.subtype = data.subtype == 'movie' ? 0 : 1;
+
+	return data;
+
 }
 
+var getMovieBaseInfo = function(id) {
+	return api.getMovieBaseInfo(id).then(function(data) {
+		var data = filterData(data);
+		// 存储到movie数据表
+		movieModel.add(data, function(err, result) {
+			if (err) {
+				return {error: 1, data: 'id为' + data.id + '插入数据表movie失败，原因:' + err};
+			} else {
+				var opt = {
+					mid: id,
+					title: data.title,
+					year: data.year,
+					addtime: Math.floor((new Date()).getTime()/1000)
+				};
+				//添加task数据表
+				taskModel.add(opt, function(err, res) {
 
-process.on('message', function(m) {
-	getInTheaters();
-});
+					if (err) {
+						return {error: 1, data: 'id为' + data.id + '插入数据表task失败，原因:' + err};
+					} else {
+						return {error: 0, data: {title: data.title, id: data.id, year: data.year}};
+					}
+				});
+			}
+		});
+	});
+}
+
+module.exports = function(ids, callback) {
+	common.mapLimit(ids, 4, function(id) {
+		return getMovieBaseInfo(id);
+	}, function(errs, results) {
+		callback(results);
+	});
+}

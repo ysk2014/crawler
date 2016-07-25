@@ -2,6 +2,8 @@ var path = require('path');
 
 require(path.join(__dirname, '../global'));
 
+var common = require(path.join(__dirname, '../common'));
+
 var source = require(path.join(__dirname, '../config/app')).source;
 
 /**
@@ -19,8 +21,8 @@ var getDownload = function(info) {
 	}));
 }
 
-process.on('message', function(info) {
-	getDownload(info).then(function(results) {
+var getSingle = function(info) {
+	return getDownload(info).then(function(results) {
 
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
@@ -72,9 +74,16 @@ process.on('message', function(info) {
 			}
 		}
 
-		process.send({data:data, errors: errors});
-		process.disconnect();
+		return {data:data, errors: errors};
 	});
-});
+};
+
+module.exports = function(data, callback) {
+	common.mapLimit(data, 2, function(info) {
+		return getSingle(info);
+	}, function(errs, results) {
+		callback(results);
+	});
+}
 
 
