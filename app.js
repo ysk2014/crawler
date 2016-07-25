@@ -7,6 +7,6 @@ var douban = require(path.join(__dirname, 'douban'));
 
 var source = require(path.join(__dirname, 'source'));
 
-douban().then(function(data) {
+douban.getInTheaters().then(function(data) {
 	return source.getDownloads();
 });
