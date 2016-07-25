@@ -6,9 +6,9 @@ var common = require(path.join(__dirname, '../common'));
 
 var api = require(path.join(__dirname, 'api'));
 
-var movieModel = require(path.join(ROOT, 'models/movie'));
+var movieModel = require(path.join(__dirname, '../models/movie'));
 
-var taskModel = require(path.join(ROOT, 'models/task'));
+var taskModel = require(path.join(__dirname, '../models/task'));
 
 /**
 * 对电影数据进行处理，使其符合存储数据库的格式

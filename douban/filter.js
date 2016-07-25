@@ -1,7 +1,7 @@
 
 var path = require('path');
 
-var movieModel = require(path.join(__dirname, '../../models/movie'));
+var movieModel = require(path.join(__dirname, '../models/movie'));
 
 var filterCtrl = {};
 
