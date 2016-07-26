@@ -37,7 +37,9 @@ source.getDownloads = function() {
 	return getTaskData().then(function(data) {
 		var child = require(path.join(__dirname, 'child'));
 		console.log(data.length);
-		child(data);
+		child(data, function() {
+			console.log('程序完成');
+		});
 	}).catch(function(err) {
 		logger.error(JSON.stringify(err));
 		var email = require(path.join(__dirname, '../email'));
