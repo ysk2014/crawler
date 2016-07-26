@@ -1,13 +1,15 @@
 var path = require('path');
 
-require(path.join(__dirname, 'global'));
+require(path.join(__dirname, '../global'));
 
-var email = require('./email');
+var email = require('../email');
 
 
-email.sendMovies({
+email.sendErr({
 	error: 1,
 	data: {id:32013, title: 'dsadsa'}
 }).then(function(data) {
 	console.log(data);
+}).catch(function(err) {
+	console.log(err);
 })
