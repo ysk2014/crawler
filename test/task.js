@@ -1,3 +1,4 @@
+var path = require('path');
 var taskModel = require(path.join(__dirname, '../models/task'));
 
 taskModel.getAll(function(err, res) {
