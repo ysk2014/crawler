@@ -78,7 +78,7 @@ module.exports = function(data, callback) {
 	common.mapLimit(data, 2, function(info) {
 		return getSingle(info);
 	}, function(errs, results) {
-		
+		callback && callback();
 		var email = require(path.join(__dirname, '../email'));
 
 		var errs = _.pluck(results, 'errors');
@@ -92,8 +92,6 @@ module.exports = function(data, callback) {
 			logger.info(JSON.stringify(res));
 			email.sendMovies(res);
 		}
-
-		callback && callback();
 	});
 }
 
