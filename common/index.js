@@ -31,7 +31,7 @@ module.exports = {
 
 					delEnd();
 				}).catch(function(err) {
-					errors.push(data);
+					errors.push(err);
 					_arr.splice(len-1, 1);
 
 					delEnd();
