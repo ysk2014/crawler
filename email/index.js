@@ -4,8 +4,6 @@ var nodemailer  = require("nodemailer");
 var settings = require(path.join(__dirname, '../config/mail'));
 // var ejs = require('ejs');
 
-console.log(settings);
-
 var user = settings.username, pass = settings.password;
 
 var smtpTransport = nodemailer.createTransport({
