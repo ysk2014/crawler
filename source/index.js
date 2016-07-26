@@ -41,7 +41,7 @@ source.getDownloads = function() {
 				console.log('程序完成');
 			});
 		} else {
-			console.log('没有获取到数据');
+			console.log('没有获取到数据, 程序关闭');
 		}
 	}).catch(function(err) {
 		console.log(err);
