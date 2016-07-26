@@ -80,8 +80,10 @@ module.exports = function(data, callback) {
 	}, function(errs, results) {
 		var email = require(path.join(__dirname, '../email'));
 		console.log(results);
+		console.log(_.pluck(results, 'errors'));
+		
 		var errs = _.pluck(results, 'errors');
-		console.log(errs);
+		
 		if (errs.length > 0) {
 			logger.error(JSON.stringify(errs));
 			email.sendErr(errs);
