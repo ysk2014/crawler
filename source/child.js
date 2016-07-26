@@ -79,7 +79,7 @@ module.exports = function(data, callback) {
 		return getSingle(info);
 	}, function(errs, results) {
 		var email = require(path.join(__dirname, '../email'));
-		console.log(results);
+		// console.log(results);
 		console.log(_.pluck(results, 'errors'));
 		
 		var errs = _.pluck(results, 'errors');
