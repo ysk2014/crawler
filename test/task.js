@@ -2,8 +2,8 @@ var taskModel = require(path.join(__dirname, '../models/task'));
 
 taskModel.getAll(function(err, res) {
 			if (err) {
-				reject(err);
+				console.log(err);
 			} else {
-				resolve(res);
+				console.log(res.length);
 			}
 		});
