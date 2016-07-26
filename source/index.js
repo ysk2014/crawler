@@ -35,11 +35,15 @@ var getTaskData = function() {
 */
 source.getDownloads = function() {
 	return getTaskData().then(function(data) {
-		var child = require(path.join(__dirname, 'child'));
-		console.log(data.length);
-		child(data, function() {
-			console.log('程序完成');
-		});
+		if (data.length>0) {
+			var child = require(path.join(__dirname, 'child'));
+			child(data, function() {
+				console.log('程序完成');
+			});
+		} else {
+			console.log('123');
+		}
+		
 	}).catch(function(err) {
 		console.log(err);
 		logger.error(JSON.stringify(err));
