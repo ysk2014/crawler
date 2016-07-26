@@ -41,6 +41,7 @@ source.getDownloads = function() {
 			console.log('程序完成');
 		});
 	}).catch(function(err) {
+		console.log(err);
 		logger.error(JSON.stringify(err));
 		var email = require(path.join(__dirname, '../email'));
 		email.sendErr(err);

@@ -36,18 +36,18 @@ module.exports = {
 		return promise;
 	},
 	sendErr: function(data) {
-		var promise = new Promise(function(resolve, reject) {
+		// var promise = new Promise(function(resolve, reject) {
 			smtpTransport.sendMail({
 			    from    : 'Node.JS<电影爬虫>',
-			    to      : emails,
+			    to      : user,
 			    subject : '电影爬虫出错列表',
 			    html    : JSON.stringify(data)
 			}, function(error, res) {
-			    if (error) reject(error);
-			    resolve(res);
+			    if (error) console.log(error);
+			    // resolve(res);
 			});
-		});
+		// });
 
-		return promise;
+		// return promise;
 	}
 };
