@@ -1,9 +1,5 @@
 var path = require('path');
-
-require(path.join(__dirname, '../global'));
-
 var common = require(path.join(__dirname, '../common'));
-
 var source = require(path.join(__dirname, '../config/app')).source;
 
 /**
@@ -82,7 +78,20 @@ module.exports = function(data, callback) {
 	common.mapLimit(data, 2, function(info) {
 		return getSingle(info);
 	}, function(errs, results) {
-		callback(results);
+		
+		var email = require(path.join(__dirname, '../email'));
+
+		var errs = _.pluck(results, 'errors');
+		if (errs.length > 0) {
+			logger.error(JSON.stringify(errs));
+			email.sendErr(errs);
+		}
+
+		var res = _.pluck(results, 'data');
+		if (res.length > 0) {
+			logger.info(JSON.stringify(res));
+			email.sendMovies(res);
+		}
 	});
 }
 

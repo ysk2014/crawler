@@ -1,13 +1,7 @@
 var path = require('path');
-
-require(path.join(__dirname, '../global'));
-
 var common = require(path.join(__dirname, '../common'));
-
 var api = require(path.join(__dirname, 'api'));
-
 var movieModel = require(path.join(__dirname, '../models/movie'));
-
 var taskModel = require(path.join(__dirname, '../models/task'));
 
 /**
@@ -42,37 +36,44 @@ var filterData = function(data) {
 }
 
 var getMovieBaseInfo = function(id) {
-	return api.getMovieBaseInfo(id).then(function(data) {
-		var data = filterData(data);
-		// 存储到movie数据表
-		movieModel.add(data, function(err, result) {
-			if (err) {
-				return {error: 1, data: 'id为' + data.id + '插入数据表movie失败，原因:' + err};
-			} else {
-				var opt = {
-					mid: id,
-					title: data.title,
-					year: data.year,
-					addtime: Math.floor((new Date()).getTime()/1000)
-				};
-				//添加task数据表
-				taskModel.add(opt, function(err, res) {
-
-					if (err) {
-						return {error: 1, data: 'id为' + data.id + '插入数据表task失败，原因:' + err};
-					} else {
-						return {error: 0, data: {title: data.title, id: data.id, year: data.year}};
-					}
-				});
-			}
+	var promise = new Promise(function(resolve, reject) {
+		api.getMovieBaseInfo(id).then(function(data) {
+			var data = filterData(data);
+			// 存储到movie数据表
+			movieModel.add(data, function(err, result) {
+				if (err) {
+					reject({error: 1, data: 'id为' + data.id + '插入数据表movie失败，原因:' + err});
+				} else {
+					var opt = {
+						mid: id,
+						title: data.title,
+						year: data.year,
+						addtime: Math.floor((new Date()).getTime()/1000)
+					};
+					//添加task数据表
+					taskModel.add(opt, function(err, res) {
+						if (err) {
+							reject({error: 1, data: 'id为' + data.id + '插入数据表task失败，原因:' + err});
+						} else {
+							resolve({error: 0, data: {title: data.title, id: data.id, year: data.year}});
+						}
+					});
+				}
+			});
 		});
 	});
+	return promise;
 }
 
 module.exports = function(ids, callback) {
 	common.mapLimit(ids, 4, function(id) {
 		return getMovieBaseInfo(id);
 	}, function(errs, results) {
-		callback(results);
+		if (errs.length > 0) {
+			logger.error(JSON.stringify(errs));
+		}
+		if (results.length > 0) {
+			logger.info(JSON.stringify(results));
+		}
 	});
 }

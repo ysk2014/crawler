@@ -1,7 +1,5 @@
 var path = require('path');
-
 var api = require(path.join(__dirname, 'api'));
-
 var douban = {};
 
 douban.getInTheaters = function() {
@@ -16,9 +14,7 @@ douban.getInTheaters = function() {
 		}).then(function(data) {
 			if (data.length>0) {
 				var child = require(path.join(__dirname, 'child'));
-				child(data, function(results) {
-					console.log(results.length);
-				});
+				child(data);
 			}
 
 			resolve('豆瓣爬虫完成');

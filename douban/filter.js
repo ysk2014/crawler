@@ -1,11 +1,7 @@
 
 var path = require('path');
-
 var movieModel = require(path.join(__dirname, '../models/movie'));
-
 var filterCtrl = {};
-
-
 
 /**
 * 过滤掉已储存数据的id
