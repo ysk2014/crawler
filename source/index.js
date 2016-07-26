@@ -59,7 +59,9 @@ source.getDownloads = function() {
 		child(data, function(results) {
 			console.log(results);
 		});
-	})
+	}).catch(function(err) {
+		console.log(err);
+	});
 }
 
 module.exports = source;
