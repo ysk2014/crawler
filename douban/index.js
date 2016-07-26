@@ -1,7 +1,5 @@
 var path = require('path');
-
 var api = require(path.join(__dirname, 'api'));
-
 var douban = {};
 
 douban.getInTheaters = function() {

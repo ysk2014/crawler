@@ -33,12 +33,8 @@ var getTaskData = function() {
 */
 source.getDownloads = function() {
 	return getTaskData().then(function(data) {
-
 		var child = require(path.join(__dirname, 'child'));
-
-		child(data, function(results) {
-			console.log(results);
-		});
+		child(data);
 	}).catch(function(err) {
 		console.log(err);
 	});

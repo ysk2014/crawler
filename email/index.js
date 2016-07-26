@@ -34,6 +34,20 @@ module.exports = {
 		});
 
 		return promise;
-		
+	},
+	sendErr: function(data) {
+		var promise = new Promise(function(resolve, reject) {
+			smtpTransport.sendMail({
+			    from    : 'Node.JS<电影爬虫>',
+			    to      : ['1181102772@qq.com'],
+			    subject : '电影爬虫出错列表',
+			    html    : JSON.stringify(data)
+			}, function(error, res) {
+			    if (error) reject(error);
+			    resolve(res);
+			});
+		});
+
+		return promise;
 	}
 };

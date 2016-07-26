@@ -1,13 +1,7 @@
 var path = require('path');
-
-require(path.join(__dirname, '../global'));
-
 var common = require(path.join(__dirname, '../common'));
-
 var api = require(path.join(__dirname, 'api'));
-
 var movieModel = require(path.join(__dirname, '../models/movie'));
-
 var taskModel = require(path.join(__dirname, '../models/task'));
 
 /**
