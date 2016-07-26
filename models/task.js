@@ -23,8 +23,7 @@ var Task = db.define('task', {
 		defaultValue: 0
 	},
 	results: {
-		type: Sequelize.TEXT,
-		allowNull: true
+		type: Sequelize.STRING
 	},
 	addtime: {
 		type: Sequelize.STRING
