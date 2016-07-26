@@ -1,8 +1,6 @@
 
 var path = require('path');
 
-var fork = require('child_process').fork;
-
 var sources = require(path.join(__dirname, '../config/app')).source;
 
 var source = {};
@@ -55,6 +53,8 @@ source.getDownloads = function() {
 
 		// 	return promise;
 		// }));
+
+		var child = require(path.join(__dirname, 'child'));
 
 		child(data, function(results) {
 			console.log(results);
