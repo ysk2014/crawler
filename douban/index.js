@@ -6,7 +6,7 @@ var douban = {};
 
 douban.getInTheaters = function() {
 	var promise = new Promise(function(resolve, reject) {
-		api.getMovieInTheaters().then(function(data) {
+		return api.getMovieInTheaters().then(function(data) {
 			return data.subjects.map(function(d) {
 				return d.id;
 			});
@@ -21,7 +21,7 @@ douban.getInTheaters = function() {
 				});
 			}
 
-			return '';
+			return '豆瓣爬虫完成';
 		});
 	});
 
