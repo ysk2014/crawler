@@ -10,6 +10,7 @@ var source = require(path.join(__dirname, '../config/app')).source;
 * @return array
 */
 var getDownload = function(info) {
+	console.log(info.results);
 	var results = info.results ? info.results.split(',') : [];
 	return Promise.all(_.difference(source, results).map(function(name) {
 		var item = require(path.join(__dirname, 'api/'+name));
