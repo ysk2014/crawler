@@ -82,6 +82,7 @@ module.exports = function(data, callback) {
 	common.mapLimit(data, 2, function(info) {
 		return getSingle(info);
 	}, function(errs, results) {
+		console.log(errs);
 		callback(results);
 	});
 }
