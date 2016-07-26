@@ -92,6 +92,8 @@ module.exports = function(data, callback) {
 			logger.info(JSON.stringify(res));
 			email.sendMovies(res);
 		}
+
+		callback && callback();
 	});
 }
 
