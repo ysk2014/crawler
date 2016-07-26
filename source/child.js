@@ -80,6 +80,7 @@ var getSingle = function(info) {
 
 module.exports = function(data, callback) {
 	common.mapLimit(data, 2, function(info) {
+		console.log(info);
 		return getSingle(info);
 	}, function(errs, results) {
 		console.log(errs);
