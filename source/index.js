@@ -37,7 +37,9 @@ source.getDownloads = function() {
 		console.log(data.length);
 		child(data);
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(JSON.stringify(err));
+		var email = require(path.join(__dirname, '../email'));
+		email.sendErr(err);
 	});
 }
 
