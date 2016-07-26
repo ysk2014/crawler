@@ -16,7 +16,7 @@ var getTaskData = function() {
 		var taskModel = require(path.join(__dirname, '../models/task'));
 
 		taskModel.getAll(function(err, res) {
-			if (err) console.log(err);;
+			if (err) reject(err);
 
 			resolve(res);
 		});
@@ -34,7 +34,7 @@ var getTaskData = function() {
 source.getDownloads = function() {
 	return getTaskData().then(function(data) {
 		var child = require(path.join(__dirname, 'child'));
-		child(data);
+		child(data, function(res) {});
 	}).catch(function(err) {
 		console.log(err);
 	});
