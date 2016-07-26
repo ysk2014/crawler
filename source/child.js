@@ -79,14 +79,16 @@ module.exports = function(data, callback) {
 		return getSingle(info);
 	}, function(errs, results) {
 		var email = require(path.join(__dirname, '../email'));
-
+		console.log(results);
 		var errs = _.pluck(results, 'errors');
+		console.log(errs);
 		if (errs.length > 0) {
 			logger.error(JSON.stringify(errs));
 			email.sendErr(errs);
 		}
 
 		var res = _.pluck(results, 'data');
+		console.log(res);
 		if (res.length > 0) {
 			logger.info(JSON.stringify(res));
 			email.sendMovies(res);
