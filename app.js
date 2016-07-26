@@ -9,6 +9,6 @@ var source = require(path.join(__dirname, 'source'));
 
 console.log('程序启动');
 douban.getInTheaters().then(function(data) {
-
-	return source.getDownloads();
+	console.log('资源启动');
+	source.getDownloads();
 });
