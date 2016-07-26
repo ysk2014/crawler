@@ -1,5 +1,5 @@
 var path = require('path');
-require(path.join(__dirname, 'global'));
+require(path.join(__dirname, '../global'));
 var common = require(path.join(__dirname, '../common'));
 var source = require(path.join(__dirname, '../config/app')).source;
 
