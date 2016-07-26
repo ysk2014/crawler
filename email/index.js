@@ -22,7 +22,7 @@ module.exports = {
 	sendMovies: function(data) {
 		var promise = new Promise(function(resolve, reject) {
 			smtpTransport.sendMail({
-			    from    : 'Node.JS<电影爬虫>',
+			    from    : 'Node.JS<'+user+'>',
 			    to      : emails,
 			    subject : '网上正在热映的电影已经有资源',
 			    html    : JSON.stringify(data)
@@ -35,18 +35,18 @@ module.exports = {
 		return promise;
 	},
 	sendErr: function(data) {
-		// var promise = new Promise(function(resolve, reject) {
+		var promise = new Promise(function(resolve, reject) {
 			smtpTransport.sendMail({
-			    from    : 'Node.JS<电影爬虫>',
+			    from    : 'Node.JS<'+user+'>',
 			    to      : user,
 			    subject : '电影爬虫出错列表',
 			    html    : JSON.stringify(data)
 			}, function(error, res) {
-			    if (error) console.log(error);
-			    // resolve(res);
+			    if (error) reject(error);
+			    resolve(res);
 			});
-		// });
+		});
 
-		// return promise;
+		return promise;
 	}
 };
