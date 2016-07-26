@@ -33,26 +33,6 @@ var getTaskData = function() {
 */
 source.getDownloads = function() {
 	return getTaskData().then(function(data) {
-		// return Promise.all(data.map(function(d) {
-		// 	var promise = new Promise(function(resolve, reject) {
-		// 		var child = fork(path.join(__dirname, 'child'));
-
-		// 		child.send(d); //单个电影任务的数据信息
-
-		// 		child.on('message', function(m) {
-		// 			resolve(m);
-		// 		});
-
-		// 		child.on('error', function(err) {
-		// 			resolve({
-		// 				error: 1,
-		// 				data: '开启电影id为'+d.id+'的下载资源的子进程失败，原因：'+err
-		// 			});
-		// 		});
-		// 	});
-
-		// 	return promise;
-		// }));
 
 		var child = require(path.join(__dirname, 'child'));
 
