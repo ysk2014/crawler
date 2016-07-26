@@ -41,9 +41,8 @@ source.getDownloads = function() {
 				console.log('程序完成');
 			});
 		} else {
-			console.log('123');
+			console.log('没有获取到数据');
 		}
-		
 	}).catch(function(err) {
 		console.log(err);
 		logger.error(JSON.stringify(err));
