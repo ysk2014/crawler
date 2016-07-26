@@ -1,4 +1,5 @@
 var path = require('path');
+require(path.join(__dirname, 'global'));
 var common = require(path.join(__dirname, '../common'));
 var source = require(path.join(__dirname, '../config/app')).source;
 
@@ -82,8 +83,12 @@ module.exports = function(data, callback) {
 
 		var errs = [], res = [];
 		results.forEach(function(result) {
-			errs.push(result.errors);
-			res.push(result.data);
+			if (result.errors.length>0) {
+				errs.push(result.errors);
+			}
+			if (result.data.length>0) {
+				res.push(result.data);
+			}
 		});
 
 		if (errs.length > 0) {
