@@ -36,6 +36,7 @@ var getTaskData = function() {
 source.getDownloads = function() {
 	return getTaskData().then(function(data) {
 		if (data.length>0) {
+			console.log(data.length);
 			var child = require(path.join(__dirname, 'child'));
 			child(data, function() {
 				console.log('程序完成');
