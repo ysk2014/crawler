@@ -3,6 +3,8 @@ var path = require('path');
 
 var schedule = require('node-schedule');
 
+require(path.join(__dirname, 'global'));
+
 var config = require(path.join(__dirname, 'config/app'));
 
 var douban = function() {
