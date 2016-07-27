@@ -1,6 +1,6 @@
 var path = require('path');
 var common = require(path.join(__dirname, '../common'));
-var source = require(path.join(__dirname, '../config/app')).source;
+
 
 /**
 * 获取单个任务的下载资源
@@ -9,16 +9,15 @@ var source = require(path.join(__dirname, '../config/app')).source;
 * 
 * @return array
 */
-var getDownload = function(info) {
-	var results = info.results ? info.results.split(',') : [];
-	return Promise.all(_.difference(source, results).map(function(name) {
+var getDownload = function(info, type) {
+	return Promise.all(type.map(function(name) {
 		var item = require(path.join(__dirname, 'api/'+name));
 		return item(info);
 	}));
 }
 
-var getSingle = function(info) {
-	return getDownload(info).then(function(results) {
+var getSingle = function(info, type) {
+	return getDownload(info, type).then(function(results) {
 
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
@@ -51,6 +50,7 @@ var getSingle = function(info) {
 			var taskModel = require(path.join(__dirname, '../models/task'));
 
 			var results = info.results ? info.results.split(',') : [];
+			var source = require(path.join(__dirname, '../config/app')).source;
 
 			if (data.length + results.length == source.length) {
 				taskModel.delByMid(info.mid, function(err, res) {
@@ -74,9 +74,9 @@ var getSingle = function(info) {
 	});
 };
 
-module.exports = function(data, callback) {
+module.exports = function(data, type, callback) {
 	common.mapLimit(data, 2, function(info) {
-		return getSingle(info);
+		return getSingle(info, type);
 	}, function(errs, results) {
 		var email = require(path.join(__dirname, '../email'));
 
