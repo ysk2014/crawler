@@ -4,26 +4,116 @@ require(path.join(__dirname, '../global'));
 
 var email = require('../email');
 
-var data = {
-	data:[
-		{
-			"id": 13123,
-			"title": "绝地逃亡",
-			"data": [
-				{
-					"from": "bttt",
-					"source": [
-						{
-							"title": "绝地逃亡",
-							"href": "http://walle.taihenw.com/task/index"
-						}
+var data = [
+	{
+		"id": 13123,
+		"title": "绝地逃亡",
+		"data": [
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
 
-					]
-				}
-			]
-		}
-	]
-};
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			}
+		]
+	},
+	{
+		"id": 13123,
+		"title": "绝地逃亡",
+		"data": [
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			}
+		]
+	},
+	{
+		"id": 13123,
+		"title": "绝地逃亡",
+		"data": [
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			},
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "绝地逃亡",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			}
+		]
+	}
+];
 
 
 http.createServer(function(req, res) {

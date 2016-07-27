@@ -1,24 +1,26 @@
 
-
 <table width="640" cellpadding="0" cellspacing="0" border="0">
 	<tr style="border-collapse: collapse;">
 		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
 		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;">
 			<% _.each(data, function(movie) { %>
-				<table width="580" cellpadding="0" cellspacing="0" border="0">
+				<table width="580" cellpadding="0" cellspacing="0" border="0" style=" padding-top: 10px; padding-bottom: 20px; border-bottom: 1px solid #ccc;">
 					<tr style="border-collapse: collapse;">
-						<td width="580" style="border-collapse: collapse; font-size: 24px; font-weight: bold; background-color: #fff;"><%= movie.title %></td>
+						<td width="580" style="border-collapse: collapse; font-size: 24px; font-weight: bold;">《<%= movie.title %>》</td>
 					</tr>
-					<% _.each(movie.data, function(item) { %>
-						<tr style="border-collapse: collapse;">
-							<td width="580" style="border-collapse: collapse; background-color: #fff;">下载来源：<%= item.from %></td>
-						</tr>
-						<tr style="border-collapse: collapse;">
-							<% _.each(item.source, function(source) { %>
-								<td style="border-collapse: collapse; background-color: #fff;">资源：<a href="<%= source.href %>" target="_blank">《<%= source.title %>》</td>
+					<tr style="border-collapse: collapse;" height="20"></tr>
+					<tr style="border-collapse: collapse;">
+						<td width="580" style="border-collapse: collapse;">
+							下载资源：
+							<% _.each(movie.data, function(item) { %>
+								<% _.each(source, function(from) { %>
+									<% if (from.code == item.from) { %>
+										<a href="<%= item.source[0].href %>" target="_blank" style="margin-left: 10px;"><%= from.title %> </a>
+									<% } %>
+								<% }); %>
 							<% }); %>
-						</tr>
-					<% }); %>
+						</td>
+					</tr>
 				</table>
 			<% }); %>
 		</td>
