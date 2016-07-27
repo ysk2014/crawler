@@ -5,7 +5,7 @@ var schedule = require('node-schedule');
 
 var task = function() {
 
-	return schedule.scheduleJob('* 19 * * *', function() {
+	return schedule.scheduleJob('* 19 */2 * *', function() {
 
 		require(path.join(__dirname, 'app'));
 	});
