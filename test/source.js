@@ -1,6 +1,6 @@
 
 var source = require('../source');
 
-var type = ['dytt'];
+var type = ['bttt'];
 
 source.getDownloads(type);
