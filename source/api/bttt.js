@@ -24,14 +24,14 @@ var bttt = function(info) {
 				var results = {
 					error: 2,
 					data: 'id为' + info.mid + '的电影爬bt天堂数据失败，原因：没有数据',
-					form: 'bttt'
+					from: 'bttt'
 				};
 
 				if (err) {
 					var results = {
 						error: 1,
 						data: 'id为' + info.mid + '的电影爬bt天堂数据失败，原因：' + err,
-						form: 'bttt'
+						from: 'bttt'
 					};
 					console.log(results.data);
 					return resolve(results);
@@ -59,8 +59,8 @@ var bttt = function(info) {
 				if (arr.length>0) {
 					var results = {
 						error: 0,
-						form: 'bttt',
-						data: {id: info.mid, sources: arr}
+						from: 'bttt',
+						data: arr
 					};
 				}
 

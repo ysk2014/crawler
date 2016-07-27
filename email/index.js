@@ -2,7 +2,10 @@
 var path = require('path');
 var nodemailer  = require("nodemailer");
 var settings = require(path.join(__dirname, '../config/mail'));
-// var ejs = require('ejs');
+var _ = require('lodash');
+var fs = require('fs');
+
+
 
 var user = settings.username, pass = settings.password;
 
@@ -17,6 +20,7 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 var emails = ['1181102772@qq.com', '1185534172@qq.com'];
+
 
 module.exports = {
 	sendMovies: function(data) {
@@ -48,5 +52,11 @@ module.exports = {
 		});
 
 		return promise;
+	},
+	render: function(data) {
+		var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
+		var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
+		var tplData = _.template(tpl)(data);
+		return _.template(base)({data: tplData});
 	}
 };

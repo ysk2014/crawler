@@ -1,0 +1,40 @@
+
+// website
+{
+	"error": "0|1|2",
+	"from": "bttt|dytt",
+	"data": " str | [source]"
+}
+
+//单个电影资源
+{
+	"id": 13123,
+	"data": [
+		{
+			"from": "bttt",
+			"source": []
+		}
+	]
+}
+
+
+//爬完最终结果
+[
+	{
+		"id": 13123,
+		"title": "dsad",
+		"data": [
+			{
+				"from": "bttt",
+				"source": [
+					{
+						"title": "dsadasdsa",
+						"href": "http://walle.taihenw.com/task/index"
+					}
+
+				]
+			}
+		]
+	}
+]
+
