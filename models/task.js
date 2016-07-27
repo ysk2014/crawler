@@ -61,7 +61,7 @@ module.exports = {
 		});
 
 		sql += " or results is NULL";
-		return Sequelize.query(sql, {type: Sequelize.QueryTypes.SELECT }).then(function(data) {
+		return db.query(sql, {type: db.QueryTypes.SELECT }).then(function(data) {
 			return callback(null, data);
 		}).catch(function(err) {
 			return callback(err);
