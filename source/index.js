@@ -11,11 +11,11 @@ var source = {};
 * 
 * @return array
 */
-var getTaskData = function() {
+var getTaskData = function(type) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(__dirname, '../models/task'));
 
-		taskModel.getAll(function(err, res) {
+		taskModel.getAllByResults(type, function(err, res) {
 			if (err) {
 				reject(err);
 			} else {
@@ -33,12 +33,12 @@ var getTaskData = function() {
 * 
 * @return array
 */
-source.getDownloads = function() {
-	return getTaskData().then(function(data) {
+source.getDownloads = function(type) {
+	return getTaskData(type).then(function(data) {
 		if (data.length>0) {
 			console.log(data.length);
 			var child = require(path.join(__dirname, 'child'));
-			child(data, function() {
+			child(data, type, function() {
 				console.log('程序完成');
 			});
 		} else {

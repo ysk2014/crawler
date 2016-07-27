@@ -50,6 +50,23 @@ module.exports = {
 			return callback(err);
 		});
 	},
+	getAllByResults: function(type, callback) {
+		var sql = "SELECT * FROM task where ";
+		type.forEach(function(item, i) {
+			if (i==0) {
+				sql += "results not like '%" + item + "%'";
+			} else {
+				sql += " and results not like '%" + item + "%'";
+			}
+		});
+
+		sql += " or results is NULL";
+		return Sequelize.query(sql, {type: Sequelize.QueryTypes.SELECT }).then(function(data) {
+			return callback(null, data);
+		}).catch(function(err) {
+			return callback(err);
+		});
+	},
 	delByMid: function(mid, callback) {
 		return Task.destroy({
 			where: {
