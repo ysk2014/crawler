@@ -10,10 +10,10 @@ module.exports = {
 		}
 	],
 	schedules: {
-		douban: '0 14 * * *',
+		douban: '15 14 * * *',
 		website: {
-			'5 14 * * *': ['bttt'],
-			'10 14 * * *': ['dytt']
+			'17 14 * * *': ['bttt'],
+			'19 14 * * *': ['dytt']
 		}
 	}
 }

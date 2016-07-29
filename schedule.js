@@ -21,9 +21,11 @@ var website = function() {
 	var source = require(path.join(__dirname, 'source'));
 
 	for (var time in config.schedules.website) {
-		schedule.scheduleJob(time, function() {
-			source.getDownloads(config.schedules.website[time]);
-		});
+		(function(time, website) {
+			schedule.scheduleJob(time, function() {
+				source.getDownloads(website[time]);
+			});
+		})(time,config.schedules.website)
 	}
 }
 
