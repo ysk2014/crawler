@@ -101,6 +101,7 @@ module.exports = function(data, type, callback) {
 
 		if (res.length > 0) {
 			logger.info(JSON.stringify(res));
+			console.log(res);
 			email.sendMovies(res);
 		}
 
