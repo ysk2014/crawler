@@ -83,7 +83,7 @@ module.exports = function(data, type, callback) {
 		return getSingle(info, type);
 	}, function(errs, results) {
 		var email = require(path.join(__dirname, '../email'));
-console.log(errs);
+
 		var errs = [], res = [];
 		results.forEach(function(result) {
 			if (result.error.length>0) {
@@ -101,7 +101,7 @@ console.log(errs);
 
 		if (res.length > 0) {
 			logger.info(JSON.stringify(res));
-			console.log(res);
+			console.log(res[0]['data']);
 			email.sendMovies(res);
 		}
 

@@ -20,7 +20,7 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 
-var render = function(data) {
+var renderHTML = function(data) {
 	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
 	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
 	var tplData = _.template(tpl)({data:data, source: source});
@@ -34,7 +34,7 @@ module.exports = {
 			    from    : 'Node.JS<'+user+'>',
 			    to      : settings.to,
 			    subject : '网上正在热映的电影已经有资源',
-			    html    : render(data)
+			    html    : renderHTML(data)
 			}, function(error, res) {
 			    if (error) {
 			    	reject(error);
