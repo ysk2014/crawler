@@ -28,7 +28,8 @@ var getSingle = function(info, type) {
 				errors.push({from:result.from, data: result.data});
 			}
 		});
-
+		console.log(data);
+		
 		if (data.length>0) {
 			var moviemetaModel = require(path.join(__dirname, '../models/moviemeta'));
 
