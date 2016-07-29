@@ -8,6 +8,15 @@ var data = [
 	{
 		"id": 13123,
 		"title": "绝地逃亡",
+		"info": {
+			"rating": "7.0",
+			"images": {
+				"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2367559705.jpg",
+				"large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2367559705.jpg",
+				"medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2367559705.jpg"
+			},
+			"casts": "伊利亚·伍德,伊利亚·伍德,伊利亚·伍德"
+		},
 		"data": [
 			{
 				"from": "bttt",
@@ -41,9 +50,18 @@ var data = [
 			}
 		]
 	},
-	{
+		{
 		"id": 13123,
 		"title": "绝地逃亡",
+		"info": {
+			"rating": "7.0",
+			"images": {
+				"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2367559705.jpg",
+				"large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2367559705.jpg",
+				"medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2367559705.jpg"
+			},
+			"casts": "伊利亚·伍德,伊利亚·伍德,伊利亚·伍德"
+		},
 		"data": [
 			{
 				"from": "bttt",
@@ -77,9 +95,18 @@ var data = [
 			}
 		]
 	},
-	{
+		{
 		"id": 13123,
 		"title": "绝地逃亡",
+		"info": {
+			"rating": "7.0",
+			"images": {
+				"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2367559705.jpg",
+				"large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2367559705.jpg",
+				"medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2367559705.jpg"
+			},
+			"casts": "伊利亚·伍德,伊利亚·伍德,伊利亚·伍德"
+		},
 		"data": [
 			{
 				"from": "bttt",
@@ -112,7 +139,7 @@ var data = [
 				]
 			}
 		]
-	}
+	},
 ];
 
 

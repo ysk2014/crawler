@@ -69,12 +69,12 @@ var getSingle = function(info, type) {
 				})
 			}
 		}
-		return {
-			id: info.mid,
-			title: info.title,
-			data: data,
-			error: errors;
-		};
+
+		var movieInfo = _.clone(info, true);
+		movieInfo.data = data;
+		movieInfo.error = errors;
+		
+		return movieInfo;
 	});
 };
 
