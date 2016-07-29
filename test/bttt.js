@@ -1,11 +1,13 @@
 
 
-var bttt = require('../source/api/bttt');
+var btbbt = require('../source/api/btbbt');
 
-bttt({
-	title: '三人行',
+btbbt({
+	title: '美人鱼',
 	mid: 213213,
 	year: 2016
 }).then(function(data) {
-	console.log(data.data.sources);
+	console.log(data);
+}).catch(function(err) {
+	console.log(err);
 })
