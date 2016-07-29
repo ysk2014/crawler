@@ -20,12 +20,12 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 
-// var render = function(data) {
-// 	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
-// 	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
-// 	var tplData = _.template(tpl)({data:data, source: source});
-// 	return _.template(base)({data: tplData});
-// }
+var render = function(data) {
+	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
+	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
+	var tplData = _.template(tpl)({data:data, source: source});
+	return _.template(base)({data: tplData});
+}
 
 module.exports = {
 	sendMovies: function(data) {
@@ -57,11 +57,5 @@ module.exports = {
 		});
 
 		return promise;
-	},
-	render: function(data) {
-		var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
-		var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
-		var tplData = _.template(tpl)({data:data, source: source});
-		return _.template(base)({data: tplData});
 	}
 };
