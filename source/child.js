@@ -29,8 +29,6 @@ var getSingle = function(info, type) {
 			}
 		});
 
-		data = _.compact(data);
-
 		if (data.length>0) {
 			var moviemetaModel = require(path.join(__dirname, '../models/moviemeta'));
 
