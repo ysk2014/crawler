@@ -23,9 +23,9 @@ var getSingle = function(info, type) {
 		// 获取下载资源数据，过滤错误的信息
 		results.forEach(function(result) {
 			if (result.error == 0) {
-				data.push(result);
+				data.push({from:result.from, sources: result.data});
 			} else if (result.error == 1) {
-				errors.push(result);
+				errors.push({from:result.from, data: result.data});
 			}
 		});
 
@@ -37,8 +37,8 @@ var getSingle = function(info, type) {
 			data.forEach(function(item, i) {
 				var opt = {
 					mid: info.mid,
-					metakey: item.form,
-					metavalue: JSON.stringify(item)
+					metakey: item.from,
+					metavalue: JSON.stringify(item.sources)
 				};
 				moviemetaModel.add(opt, function(err, res) {
 					if (err) {
@@ -58,19 +58,23 @@ var getSingle = function(info, type) {
 				});
 			} else {
 
-				var forms = data.map(function(val) {
-					return val.form;
+				var froms = data.map(function(val) {
+					return val.from;
 				});
 				taskModel.update({
 					mid: info.mid, 
-					results: _.union(results, forms).join(',')
+					results: _.union(results, froms).join(',')
 				},function(err, res) {
 					if (err) console.log(err);
 				})
 			}
 		}
 
-		return {data:data, errors: errors};
+		var movieInfo = _.clone(info, true);
+		movieInfo.data = data;
+		movieInfo.error = errors;
+		
+		return movieInfo;
 	});
 };
 
@@ -82,11 +86,11 @@ module.exports = function(data, type, callback) {
 
 		var errs = [], res = [];
 		results.forEach(function(result) {
-			if (result.errors.length>0) {
-				errs.push(result.errors);
+			if (result.error.length>0) {
+				errs.push(result);
 			}
 			if (result.data.length>0) {
-				res.push(result.data);
+				res.push(result);
 			}
 		});
 

@@ -1,0 +1,36 @@
+
+<table width="640" cellpadding="0" cellspacing="0" border="0">
+	<tr style="border-collapse: collapse;">
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;">
+			<% _.each(data, function(movie) { %>
+				<table width="580" cellpadding="0" cellspacing="0" border="0" style=" padding-top: 10px; padding-bottom: 20px; border-bottom: 1px solid #ccc;">
+					<tr style="border-collapse: collapse;">
+						<td width="120" rowspan="4" style="border-collapse: collapse;"><img src="<%= movie.info.images.medium %>" alt="" /></td>
+						<td style="border-collapse: collapse;">名称：《<%= movie.title %>》</td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;0">主演：<%= movie.info.casts %></td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;0">豆瓣评分：<%= movie.info.rating %></td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;">
+							下载资源：
+							<% _.each(movie.data, function(item) { %>
+								<% _.each(source, function(from) { %>
+									<% if (from.code == item.from) { %>
+										<a href="<%= item.source[0].href %>" target="_blank" style="margin-left: 10px;"><%= from.title %> </a>
+									<% } %>
+								<% }); %>
+							<% }); %>
+						</td>
+					</tr>
+				</table>
+			<% }); %>
+		</td>
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+	</tr>
+</table>
+

@@ -51,18 +51,36 @@ module.exports = {
 		});
 	},
 	getAllByResults: function(type, callback) {
-		var sql = "SELECT * FROM task where ";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where ";
+
 		type.forEach(function(item, i) {
 			if (i==0) {
-				sql += "results not like '%" + item + "%'";
+				sql += " results not like '%"+ item +"%'";
 			} else {
-				sql += " and results not like '%" + item + "%'";
+				sql += " and results not like '%"+ item +"%'";
 			}
 		});
 
 		sql += " or results is NULL";
-		return db.query(sql, {type: db.QueryTypes.SELECT }).then(function(data) {
-			return callback(null, data);
+
+		return db.query(sql).then(function(data) {
+			var results = [];
+			data[0].forEach(function(item) {
+				var obj = {};
+				obj.movie = {};
+				var cur = 0;
+				for (var name in item) {
+					if (cur < 7) {
+						obj[name] = item[name];
+					} else {
+						obj['movie'][name] = item[name];
+					}
+					cur++;
+				}
+				results.push(obj);
+			});
+			
+			return callback(null, results);
 		}).catch(function(err) {
 			return callback(err);
 		});
