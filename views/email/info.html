@@ -6,7 +6,7 @@
 			<% _.each(data, function(movie) { %>
 				<table width="580" cellpadding="0" cellspacing="0" border="0" style=" padding-top: 10px; padding-bottom: 20px; border-bottom: 1px solid #ccc;">
 					<tr style="border-collapse: collapse;">
-						<td width="120" rowspan="4" style="border-collapse: collapse;"><img src="<%= JSON.parse(movie.info.images).medium %>" alt="" /></td>
+						<td width="120" rowspan="4" style="border-collapse: collapse;"><img src="<%= JSON.parse(movie.mv.images).medium %>" alt="" /></td>
 						<td style="border-collapse: collapse;">名称：《<%= movie.title %>》</td>
 					</tr>
 					<tr style="border-collapse: collapse;">

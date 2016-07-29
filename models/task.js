@@ -67,13 +67,13 @@ module.exports = {
 			var results = [];
 			data[0].forEach(function(item) {
 				var obj = {};
-				obj.movie = {};
+				obj.mv = {};
 				var cur = 0;
 				for (var name in item) {
 					if (cur < 7) {
 						obj[name] = item[name];
 					} else {
-						obj['movie'][name] = item[name];
+						obj['mv'][name] = item[name];
 					}
 					cur++;
 				}
