@@ -3,6 +3,7 @@ var api = require(path.join(__dirname, 'api'));
 var douban = {};
 
 douban.getInTheaters = function() {
+	console.log("豆瓣爬虫开始");
 	var promise = new Promise(function(resolve, reject) {
 		api.getMovieInTheaters().then(function(data) {
 			return data.subjects.map(function(d) {
