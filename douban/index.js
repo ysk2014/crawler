@@ -1,4 +1,5 @@
 var path = require('path');
+require(path.join(__dirname, '../global'));
 var api = require(path.join(__dirname, 'api'));
 var douban = {};
 
