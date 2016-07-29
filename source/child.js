@@ -28,8 +28,7 @@ var getSingle = function(info, type) {
 				errors.push({from:result.from, data: result.data});
 			}
 		});
-		console.log(data);
-		
+
 		if (data.length>0) {
 			var moviemetaModel = require(path.join(__dirname, '../models/moviemeta'));
 
@@ -81,6 +80,10 @@ module.exports = function(data, type, callback) {
 	common.mapLimit(data, 2, function(info) {
 		return getSingle(info, type);
 	}, function(errs, results) {
+		if (errs) {
+			console.log(errs);
+		}
+
 		var email = require(path.join(__dirname, '../email'));
 
 		var errs = [], res = [];
@@ -100,7 +103,6 @@ module.exports = function(data, type, callback) {
 
 		if (res.length > 0) {
 			logger.info(JSON.stringify(res));
-			console.log(res[0]['data']);
 			email.sendMovies(res);
 		}
 
