@@ -36,8 +36,11 @@ module.exports = {
 			    subject : '网上正在热映的电影已经有资源',
 			    html    : render(data)
 			}, function(error, res) {
-			    if (error) reject(error);
-			    resolve(res);
+			    if (error) {
+			    	reject(error);
+			    } else {
+			    	resolve(res);
+			    }
 			});
 		});
 
@@ -51,7 +54,7 @@ module.exports = {
 			    subject : '电影爬虫出错列表',
 			    html    : JSON.stringify(data)
 			}, function(error, res) {
-			    if (error) reject(error);
+			    if (error) return reject(error);
 			    resolve(res);
 			});
 		});
