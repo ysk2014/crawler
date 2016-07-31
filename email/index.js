@@ -31,7 +31,7 @@ module.exports = {
 	sendMovies: function(data) {
 		var promise = new Promise(function(resolve, reject) {
 			smtpTransport.sendMail({
-			    from    : 'Node.JS<'+user+'>',
+			    from    : 'MovieTime<'+user+'>',
 			    to      : settings.to,
 			    subject : '网上正在热映的电影已经有资源',
 			    html    : renderHTML(data)

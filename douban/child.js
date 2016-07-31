@@ -42,7 +42,7 @@ var getMovieBaseInfo = function(id) {
 			// 存储到movie数据表
 			movieModel.add(data, function(err, result) {
 				if (err) {
-					reject({error: 1, data: 'id为' + data.id + '插入数据表movie失败，原因:' + err});
+					reject('id为' + data.id + '插入数据表movie失败，原因:' + err);
 				} else {
 					var opt = {
 						mid: id,
@@ -53,9 +53,9 @@ var getMovieBaseInfo = function(id) {
 					//添加task数据表
 					taskModel.add(opt, function(err, res) {
 						if (err) {
-							reject({error: 1, data: 'id为' + data.id + '插入数据表task失败，原因:' + err});
+							reject('id为' + data.id + '插入数据表task失败，原因:' + err);
 						} else {
-							resolve({error: 0, data: {title: data.title, id: data.id, year: data.year}});
+							resolve({title: data.title, id: data.id, year: data.year});
 						}
 					});
 				}
@@ -72,6 +72,7 @@ module.exports = function(ids, callback) {
 		if (errs.length > 0) {
 			logger.error(JSON.stringify(errs));
 		}
+
 		if (results.length > 0) {
 			logger.info(JSON.stringify(results));
 		}

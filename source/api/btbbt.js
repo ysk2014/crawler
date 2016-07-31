@@ -35,15 +35,26 @@ var btbbt = function(info) {
 				$items.each(function() {
 					var $td = $(this).find('td.subject');
 
-					if ($td.length>0 && $td.find('a').eq(1).html() == '【高清电影】' && $td.find('a').eq(2).html() == '['+info.year+']'){
+					if ($td.length>0 && ($td.find('a').eq(1).html() == '【高清电影】' || $td.find('a').eq(1).html() == '【电影】') && $td.find('a').eq(2).html() == '['+info.year+']'){
 						var $a = $td.find('a').eq($td.find('a').length-1);
 						var text = $a.html();
-						var regexp = new RegExp('BT下载','g');
+						var regexp = new RegExp('BT','g');
 
 						if (text.indexOf(info.title)>0 && regexp.test(text)) {
 							var obj = {};
 							obj.href = 'http://www.btbbt.cc/' + $a.attr('href');
-							obj.title = text;
+							var title = '';
+							text.split(/[\[\]]/g).forEach(function(item) {
+								if (item.indexOf('G') > 0) {
+									title += item;
+								} else if (item.indexOf('P')>0) {
+									title += '/'+item;
+								} else {
+									return false;
+								}
+							});
+
+							obj.title = title;
 							arr.push(obj);
 						}
 					}

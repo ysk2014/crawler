@@ -7,9 +7,13 @@ douban.getInTheaters = function() {
 	console.log("豆瓣爬虫开始");
 	var promise = new Promise(function(resolve, reject) {
 		api.getMovieInTheaters().then(function(data) {
-			return data.subjects.map(function(d) {
-				return d.id;
+			var ids = [];
+			data.subjects.forEach(function(item) {
+				if (item.year == (new Date()).getFullYear() && parseFloat(item.rating.average) > 4) {
+					ids.push(item.id);
+				}
 			});
+			return ids;
 		}).then(function(data) {
 			var filterCtrl = require(path.join(__dirname, 'filter'));
 			return filterCtrl.filterID(data);
