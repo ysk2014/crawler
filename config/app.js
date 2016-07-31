@@ -5,15 +5,14 @@ module.exports = {
 			code: 'bttt',
 			title: 'bt天堂'
 		}, {
-			code: 'dytt',
-			title: '电影天堂'
+			code: 'btbbt',
+			title: 'BT之家'
 		}
 	],
 	schedules: {
 		douban: '0 1 */2 * *',
 		website: {
-			'0 19 */2 * *': ['bttt'],
-			'10 1 */7 * *': ['dytt']
+			'0 19 */2 * *': ['bttt','btbbt']
 		}
 	}
 }

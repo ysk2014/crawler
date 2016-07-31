@@ -19,10 +19,8 @@
 						<td style="border-collapse: collapse;">
 							下载资源：
 							<% _.each(movie.data, function(item) { %>
-								<% _.each(source, function(from) { %>
-									<% if (from.code == item.from) { %>
-										<a href="<%= item.sources[0].href %>" target="_blank" style="margin-left: 10px;"><%= from.title %> </a>
-									<% } %>
+								<% _.each(item.sources, function(sc) { %>
+									<a href="<%= sc.href %>" target="_blank" style="margin-left: 10px;"><%= sc.title %> </a>
 								<% }); %>
 							<% }); %>
 						</td>

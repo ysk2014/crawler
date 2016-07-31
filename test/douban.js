@@ -1,6 +1,6 @@
 
-var douban = require('../douban1');
+var douban = require('../douban');
 
 douban.getInTheaters().then(function(data) {
-
+	console.log(data);
 });

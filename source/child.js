@@ -52,7 +52,7 @@ var getSingle = function(info, type) {
 
 			if (data.length + results.length == source.length) {
 				taskModel.delByMid(info.mid, function(err, res) {
-					if (err) console.log(err);
+					if (err) return console.log(err);
 				});
 			} else {
 
@@ -63,7 +63,7 @@ var getSingle = function(info, type) {
 					mid: info.mid, 
 					results: _.union(results, froms).join(',')
 				},function(err, res) {
-					if (err) console.log(err);
+					if (err) return console.log(err);
 				})
 			}
 		}
@@ -71,7 +71,6 @@ var getSingle = function(info, type) {
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
-		
 		return movieInfo;
 	});
 };
