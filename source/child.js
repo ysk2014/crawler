@@ -50,21 +50,38 @@ var getSingle = function(info, type) {
 			var results = info.results ? info.results.split(',') : [];
 			var source = require(path.join(__dirname, '../config/app')).source;
 
-			if (data.length + results.length == source.length) {
-				taskModel.delByMid(info.mid, function(err, res) {
-					if (err) return console.log(err);
-				});
+			if (_.indexOf(type,'btbbt')>-1) {
+				if (data.length + results.length >= source.length+3) {
+					taskModel.delByMid(info.mid, function(err, res) {
+						if (err) return console.log(err);
+					});
+				} else {
+					var froms = data.map(function(val) {
+						return val.from;
+					});
+					taskModel.update({
+						mid: info.mid, 
+						results: _.union(results, froms).join(',')
+					},function(err, res) {
+						if (err) return console.log(err);
+					})
+				}
 			} else {
-
-				var froms = data.map(function(val) {
-					return val.from;
-				});
-				taskModel.update({
-					mid: info.mid, 
-					results: _.union(results, froms).join(',')
-				},function(err, res) {
-					if (err) return console.log(err);
-				})
+				if (data.length + results.length == source.length) {
+					taskModel.delByMid(info.mid, function(err, res) {
+						if (err) return console.log(err);
+					});
+				} else {
+					var froms = data.map(function(val) {
+						return val.from;
+					});
+					taskModel.update({
+						mid: info.mid, 
+						results: _.union(results, froms).join(',')
+					},function(err, res) {
+						if (err) return console.log(err);
+					})
+				}
 			}
 		}
 
