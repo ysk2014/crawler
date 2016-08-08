@@ -1,14 +1,15 @@
 
 module.exports = {
-	source: [
-		{
-			code: 'bttt',
-			title: 'bt天堂'
-		}, {
-			code: 'btbbt',
-			title: 'BT之家'
+	source: {
+		bttt: {
+			title: 'bt天堂',
+			class: false
+		},
+		btbbt: {
+			title: 'BT之家',
+			class: true
 		}
-	],
+	},
 	schedules: {
 		douban: '0 1 */2 * *',
 		website: {

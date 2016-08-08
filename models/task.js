@@ -51,13 +51,17 @@ module.exports = {
 		});
 	},
 	getAllByResults: function(type, callback) {
+		var source = require(path.join(__dirname, '../config/app')).source;
+
 		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where ";
 
 		type.forEach(function(item, i) {
-			if (i==0) {
-				sql += " results not like '%"+ item +"%'";
-			} else {
-				sql += " and results not like '%"+ item +"%'";
+			if (!source[type[i]].class) {
+				if (i==0) {
+					sql += " results not like '%"+ item +"%'";
+				} else {
+					sql += " and results not like '%"+ item +"%'";
+				}
 			}
 		});
 
@@ -107,13 +111,26 @@ module.exports = {
 			},{
 				fields: ['results']
 			}).then(function(data) {
-				return callback(null,data);;
+				return callback(null,data);
 			}).catch(function(err) {
 				return callback(err);
 			});
 		}).catch(function(err) {
 			return callback(err);
 		});
+	},
+	delByAddtime: function(addtime, callback) {
+		return Task.destroy({
+			where: {
+				addtime: {
+					$lt: addtime
+				}
+			}
+		}).then(function(data) {
+			return callback(null, data);
+		}).catch(function(err) {
+			return callback(err);
+		})
 	}
 };
 

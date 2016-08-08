@@ -3,8 +3,6 @@ var path = require('path');
 
 require(path.join(__dirname, '../global'));
 
-var sources = require(path.join(__dirname, '../config/app')).source;
-
 var source = {};
 
 /**
@@ -16,14 +14,19 @@ var source = {};
 var getTaskData = function(type) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(__dirname, '../models/task'));
+		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60);
+		taskModel.delByAddtime(time, function() {
+			if (err) console.log(err);
 
-		taskModel.getAllByResults(type, function(err, res) {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(res);
-			}
-		});
+			taskModel.getAllByResults(type, function(err, res) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(res);
+				}
+			});
+		})
+		
 	});
 	return promise;
 }
