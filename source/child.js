@@ -16,6 +16,7 @@ var getDownload = function(info, type) {
 	}));
 }
 
+
 var getSingle = function(info, type) {
 	return getDownload(info, type).then(function(results) {
 
@@ -38,7 +39,7 @@ var getSingle = function(info, type) {
 					metakey: item.from,
 					metavalue: JSON.stringify(item.sources)
 				};
-				moviemetaModel.add(opt, function(err, res) {
+				moviemetaModel.update(opt, function(err, res) {
 					if (err) {
 						data.slice(i,1);
 					}
@@ -48,24 +49,16 @@ var getSingle = function(info, type) {
 			var taskModel = require(path.join(__dirname, '../models/task'));
 
 			var results = info.results ? info.results.split(',') : [];
-			var source = require(path.join(__dirname, '../config/app')).source;
 
-			if (data.length + results.length == source.length) {
-				taskModel.delByMid(info.mid, function(err, res) {
-					if (err) return console.log(err);
-				});
-			} else {
-
-				var froms = data.map(function(val) {
-					return val.from;
-				});
-				taskModel.update({
-					mid: info.mid, 
-					results: _.union(results, froms).join(',')
-				},function(err, res) {
-					if (err) return console.log(err);
-				})
-			}
+			var froms = data.map(function(val) {
+				return val.from;
+			});
+			taskModel.update({
+				mid: info.mid, 
+				results: _.union(results, froms).join(',')
+			},function(err, res) {
+				if (err) return console.log(err);
+			});
 		}
 
 		var movieInfo = _.clone(info, true);
