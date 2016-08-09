@@ -40,26 +40,22 @@ var getMovieBaseInfo = function(id) {
 		api.getMovieBaseInfo(id).then(function(data) {
 			var data = filterData(data);
 			// 存储到movie数据表
-			movieModel.add(data, function(err, result) {
-				if (err) {
-					reject('id为' + data.id + '插入数据表movie失败，原因:' + err);
-				} else {
-					var opt = {
-						mid: id,
-						title: data.title,
-						year: data.year,
-						addtime: Math.floor((new Date()).getTime()/1000)
-					};
-					//添加task数据表
-					taskModel.add(opt, function(err, res) {
-						if (err) {
-							reject('id为' + data.id + '插入数据表task失败，原因:' + err);
-						} else {
-							resolve({title: data.title, id: data.id, year: data.year});
-						}
-					});
-				}
+			movieModel.add(data).then(function(result) {
+				var opt = {
+					mid: id,
+					title: data.title,
+					year: data.year,
+					addtime: Math.floor((new Date()).getTime()/1000)
+				};
+				//添加task数据表
+				return taskModel.add(opt);
+			}).then(function(res) {
+				resolve({title: data.title, id: data.id, year: data.year});
+			}).catch(function(err) {
+				reject('id为' + data.id + '插入数据失败，原因:' + err);
 			});
+		}).catch(function(err) {
+			console.log(err);
 		});
 	});
 	return promise;

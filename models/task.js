@@ -35,22 +35,14 @@ module.exports = {
 
 	table: Task,
 
-	add: function(params, callback) {
-		return Task.create(params).then(function(data) {
-			return callback(null,data);
-		}).catch(function(err) {
-			return callback(err);
-		});
+	add: function(params) {
+		return Task.create(params);
 	},
 
-	getAll: function(callback) {
-		return Task.findAll().then(function(data) {
-			return callback(null, data);
-		}).catch(function(err) {
-			return callback(err);
-		});
+	getAll: function() {
+		return Task.findAll();
 	},
-	getAllByResults: function(type, callback) {
+	getAllByResults: function(type) {
 		var source = require(path.join(__dirname, '../config/app')).source;
 
 		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where ";
@@ -84,23 +76,17 @@ module.exports = {
 				results.push(obj);
 			});
 			
-			return callback(null, results);
-		}).catch(function(err) {
-			return callback(err);
+			return results;
 		});
 	},
-	delByMid: function(mid, callback) {
+	delByMid: function(mid) {
 		return Task.destroy({
 			where: {
 				mid: mid
 			}
-		}).then(function(data) {
-			return callback(null, data);
-		}).catch(function(err) {
-			return callback(err);
-		})
+		});
 	},
-	update: function(params, callback) {
+	update: function(params) {
 		return Task.findOne({
 			where: {
 				mid: params.mid
@@ -110,27 +96,17 @@ module.exports = {
 				results: params.results
 			},{
 				fields: ['results']
-			}).then(function(data) {
-				return callback(null,data);
-			}).catch(function(err) {
-				return callback(err);
 			});
-		}).catch(function(err) {
-			return callback(err);
 		});
 	},
-	delByAddtime: function(addtime, callback) {
+	delByAddtime: function(addtime) {
 		return Task.destroy({
 			where: {
 				addtime: {
 					$lt: addtime
 				}
 			}
-		}).then(function(data) {
-			return callback(null, data);
-		}).catch(function(err) {
-			return callback(err);
-		})
+		});
 	}
 };
 
