@@ -39,10 +39,9 @@ var getSingle = function(info, type) {
 					metakey: item.from,
 					metavalue: JSON.stringify(item.sources)
 				};
-				moviemetaModel.update(opt, function(err, res) {
-					if (err) {
-						data.slice(i,1);
-					}
+				moviemetaModel.update(opt).catch(function(err) {
+					console.log(err);
+					data.slice(i,1);
 				});
 			});
 
@@ -56,8 +55,8 @@ var getSingle = function(info, type) {
 			taskModel.update({
 				mid: info.mid, 
 				results: _.union(results, froms).join(',')
-			},function(err, res) {
-				if (err) return console.log(err);
+			}).catch(function(err) {
+				console.log(err);
 			});
 		}
 

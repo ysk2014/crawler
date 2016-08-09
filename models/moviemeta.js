@@ -25,14 +25,10 @@ module.exports = {
 
 	table: Moviemeta,
 
-	add: function(params, callback) {
-		return Moviemeta.create(params).then(function(data) {
-			return callback(null,data);
-		}).catch(function(err) {
-			return callback(err);
-		});
+	add: function(params) {
+		return Moviemeta.create(params);
 	},
-	update: function(params, callback) {
+	update: function(params) {
 		return Moviemeta.findOne({
 			where: {
 				mid: params.mid,
@@ -44,23 +40,13 @@ module.exports = {
 					metavalue: params.metavalue
 				},{
 					fields: ['metavalue']
-				}).then(function(data) {
-					return callback(null,data);
-				}).catch(function(err) {
-					return callback(err);
 				});
 			} else {
-				return Moviemeta.create(params).then(function(data) {
-					return callback(null,data);
-				}).catch(function(err) {
-					return callback(err);
-				});
+				return Moviemeta.create(params);
 			}
-		}).catch(function(err) {
-			return callback(err);
 		});
 	},
-	getAll: function(params, callback) {
+	getAll: function(params) {
 		return Moviemeta.findAll({
 			where: {
 				mid: params.mid,
@@ -68,10 +54,6 @@ module.exports = {
 					$in: params.from
 				}
 			}
-		}).then(function(data) {
-			return callback(null, data);
-		}).catch(function(err) {
-			return callback(err);
 		});
 	}
 };

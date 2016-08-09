@@ -11,8 +11,8 @@ var common = function(content, type) {
 		type: type,
 		addtime: Math.floor((new Date()).getTime()/1000)
 	};
-	logModel.add(opts, function(err,data) {
-		if (err) console.log(err);
+	logModel.add(opts).catch(function(err) {
+		console.log(err);
 	});
 }
 

@@ -12,9 +12,7 @@ var filterCtrl = {};
 */
 filterCtrl.filterID = function(data) {
 	var promise = new Promise(function(resolve, reject) {
-		movieModel.checkIds(data, function(err, res) {
-			if (err) reject(err);
-
+		movieModel.checkIds(data).then(function(res) {
 			var result = res.map(function(d) {
 				return ''+d.id;
 			});
@@ -24,6 +22,8 @@ filterCtrl.filterID = function(data) {
 			} else {
 				resolve(data);
 			}
+		}).catch(function(err) {
+			reject(err);
 		});
 	});
 

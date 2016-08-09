@@ -64,15 +64,11 @@ module.exports = {
 
 	table: Movie,
 
-	add: function(params, callback) {
+	add: function(params) {
 		params.addtime = Math.floor((new Date()).getTime());
-		return Movie.create(params).then(function(data) {
-			return callback(null,data);
-		}).catch(function(err) {
-			return callback(err);
-		});
+		return Movie.create(params);
 	},
-	checkIds: function(ids, callback) {
+	checkIds: function(ids) {
 		return Movie.findAll({
 			attributes: ['id'],
 			where: {
@@ -80,10 +76,6 @@ module.exports = {
 					$in: ids
 				}
 			}
-		}).then(function(data) {
-			return callback(null,data);
-		}).catch(function(err) {
-			return callback(err);
 		});
 	}
 };

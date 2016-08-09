@@ -25,12 +25,8 @@ var Logs = db.define('logs', {
 module.exports = {
 
 	table: Logs,
-	add: function(params, callback) {
-		return Logs.create(params).then(function(data) {
-			return callback(null,data);
-		}).catch(function(err) {
-			return callback(err);
-		});
+	add: function(params) {
+		return Logs.create(params);
 	}
 };
 
