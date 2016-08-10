@@ -14,7 +14,7 @@ var source = {};
 var getTaskData = function(type) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(__dirname, '../models/task'));
-		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60);
+		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60*60);
 		
 		taskModel.delByAddtime(time).then(function() {
 			return taskModel.getAllByResults(type);
