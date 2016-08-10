@@ -1,6 +1,8 @@
 
 var Sequelize = require('sequelize');
 
+var path = require('path');
+
 var db = require('./base');
 
 var Task = db.define('task', {

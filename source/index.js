@@ -13,7 +13,6 @@ var source = {};
 */
 var getTaskData = function(type) {
 	var promise = new Promise(function(resolve, reject) {
-		console.log(path);
 		var taskModel = require(path.join(__dirname, '../models/task'));
 		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60);
 		
