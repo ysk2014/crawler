@@ -11,7 +11,7 @@ var btbbt = function(info) {
 
 	var promise = new Promise((resolve, reject) => {
 		superagent.get(url)
-			.set('cookie','bbs_sid=ae1595d165c7d24a; bbs_lastday=1469782151; BAIDU_SSP_lcr=https://www.baidu.com/link?url=Hmpn1kCGvMtY6BDiQpjYTDi_fuNefQjVAAztKsxUAaG&wd=&eqid=e47db27a0002a43b00000003579b18a3; cref=1; bbs_lastonlineupdate=1469784905; bbs_page=1; cook_aid=2701; timeoffset=%2B08; CNZZDATA1252895025=808515002-1466500893-null%7C1469783075; a3989_pages=15; a3989_times=2; a3637_pages=30; a3637_times=2')
+			.set('cookie','bbs_sid=ae1595d165c7d24a; cook_aid=10706; bbs_lastday=1471431970; visid_incap_871584=kHsMaLu5SPO1oOtBISUFeSFFtFcAAAAAQUIPAAAAAADnUCr41F/SnuNxvVHalO4h; incap_ses_434_871584=j1leEwgbFmxlKEOd0eAFBiFFtFcAAAAA5rfDZRZPEw5uYv8VS7gcEQ==; bbs_lastonlineupdate=1471431979; timeoffset=%2B08; CNZZDATA1252895025=808515002-1466500893-null%7C1471428253; a3989_pages=2; a3989_times=4; a3637_pages=4; a3637_times=4')
 			.end(function(err,res) {
 				var results = {
 					error: 2,
