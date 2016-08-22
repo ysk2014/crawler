@@ -13,7 +13,8 @@ module.exports = {
 	schedules: {
 		douban: '0 1 */2 * *',
 		website: {
-			'0 19 */2 * *': ['bttt','btbbt']
+			'0 19 */2 * *': ['bttt'],
+			'0 12 */2 * *': ['btbbt']
 		}
 	}
 }
