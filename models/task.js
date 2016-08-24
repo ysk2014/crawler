@@ -47,7 +47,7 @@ module.exports = {
 	getAllByResults: function(type) {
 		var source = require(path.join(__dirname, '../config/app')).source;
 
-		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where ";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where results is NULL or";
 
 		type.forEach(function(item, i) {
 			if (!source[type[i]].class) {
@@ -58,8 +58,6 @@ module.exports = {
 				}
 			}
 		});
-
-		sql += " or results is NULL";
 
 		return db.query(sql).then(function(data) {
 			var results = [];
