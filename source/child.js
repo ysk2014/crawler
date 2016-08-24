@@ -30,35 +30,6 @@ var getSingle = function(info, type) {
 			}
 		});
 
-		if (data.length>0) {
-			var moviemetaModel = require(path.join(__dirname, '../models/moviemeta'));
-
-			data.forEach(function(item, i) {
-				var opt = {
-					mid: info.mid,
-					metakey: item.from,
-					metavalue: JSON.stringify(item.sources)
-				};
-				moviemetaModel.update(opt).catch(function(err) {
-					console.log(err);
-					data.slice(i,1);
-				});
-			});
-
-			var taskModel = require(path.join(__dirname, '../models/task'));
-
-			var results = info.results ? info.results.split(',') : [];
-
-			var froms = data.map(function(val) {
-				return val.from;
-			});
-			taskModel.update({
-				mid: info.mid, 
-				results: _.union(results, froms).join(',')
-			}).catch(function(err) {
-				console.log(err);
-			});
-		}
 
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
@@ -67,17 +38,47 @@ var getSingle = function(info, type) {
 	});
 };
 
+// 入库
+var saveData = function(movieInfo) {
+	var moviemetaModel = require(path.join(__dirname, '../models/moviemeta'));
+	var taskModel = require(path.join(__dirname, '../models/task'));
+
+	var results = movieInfo.results ? movieInfo.results.split(',') : [];
+
+	var froms = movieInfo.data.map(function(val) {
+		return val.from;
+	});
+
+	return Promise.all(movieInfo.data.map(function(item, i) {
+
+		return new Promise(function(resolve, reject) {
+			var opt = {
+				mid: movieInfo.mid,
+				metakey: item.from,
+				metavalue: JSON.stringify(item.sources)
+			};
+			moviemetaModel.update(opt).then(function(res) {
+				resolve(res);
+			}).catch(function(err) {
+				reject(err);
+				movieInfo.data.slice(i,1);
+			});
+		});
+	})).then(function(res) {
+		return taskModel.update({
+			mid: info.mid, 
+			results: _.union(results, froms).join(',')
+		});
+	});
+};
+
 module.exports = function(data, type, callback) {
 	common.mapLimit(data, 2, function(info) {
 		return getSingle(info, type);
 	}, function(errs, results) {
-		if (errs) {
-			console.log(errs);
-		}
-
 		var email = require(path.join(__dirname, '../email'));
 
-		var errs = [], res = [];
+		var res = [];
 		results.forEach(function(result) {
 			if (result.error.length>0) {
 				errs.push(result);
@@ -88,16 +89,26 @@ module.exports = function(data, type, callback) {
 		});
 
 		if (errs.length > 0) {
-			logger.error(JSON.stringify(errs));
-			email.sendErr(errs);
+			logger.error(JSON.stringify(errors));
+			email.sendErr(errors);
 		}
 
 		if (res.length > 0) {
-			logger.info(JSON.stringify(res));
-			email.sendMovies(res);
+			Promise.all(res.map(function(item) {
+				return saveData(item);
+			})).then(function() {
+				logger.info(JSON.stringify(res));
+				email.sendMovies(res);
+				callback && callback();
+			}).catch(function(err) {
+				console.log(err);
+				email.sendErr(err);
+				callback && callback();
+			});
+		} else {
+			callback && callback();
 		}
-
-		callback && callback();
+		
 	});
 }
 
