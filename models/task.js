@@ -44,10 +44,10 @@ module.exports = {
 	getAll: function() {
 		return Task.findAll();
 	},
-	getAllByResults: function(type) {
+	getAllByResults: function(type,expir) {
 		var source = require(path.join(__dirname, '../config/app')).source;
 
-		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where results is NULL or";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where addtime >= "+expir+" and results is NULL or";
 
 		type.forEach(function(item, i) {
 			if (!source[type[i]].class) {

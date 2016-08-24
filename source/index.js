@@ -16,9 +16,7 @@ var getTaskData = function(type) {
 		var taskModel = require(path.join(__dirname, '../models/task'));
 		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60*60);
 		
-		taskModel.delByAddtime(time).then(function() {
-			return taskModel.getAllByResults(type);
-		}).then(function(res) {
+		taskModel.getAllByResults(type, time).then(function(res) {
 			resolve(res);
 		}).catch(function(err) {
 			reject(err);
@@ -38,7 +36,9 @@ source.getDownloads = function(type) {
 	console.log(type.join(',')+'：爬虫开始');
 	return getTaskData(type).then(function(data) {
 		if (data.length>0) {
+			
 			console.log(data.length);
+
 			var child = require(path.join(__dirname, 'child'));
 			child(data, type, function() {
 				console.log(type.join(',')+'：爬虫结束');
