@@ -66,7 +66,7 @@ var saveData = function(movieInfo) {
 		});
 	})).then(function(res) {
 		return taskModel.update({
-			mid: info.mid, 
+			mid: movieInfo.mid, 
 			results: _.union(results, froms).join(',')
 		});
 	});
