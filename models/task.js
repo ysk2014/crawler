@@ -47,14 +47,14 @@ module.exports = {
 	getAllByResults: function(type,expir) {
 		var source = require(path.join(__dirname, '../config/app')).source;
 
-		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.addtime >= "+expir+" and results is NULL or";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.addtime >= "+expir+" and task.results is NULL";
 
 		type.forEach(function(item, i) {
 			if (!source[type[i]].class) {
 				if (i==0) {
-					sql += " results not like '%"+ item +"%'";
+					sql += " or task.results not like '%"+ item +"%'";
 				} else {
-					sql += " and results not like '%"+ item +"%'";
+					sql += " and task.results not like '%"+ item +"%'";
 				}
 			}
 		});
