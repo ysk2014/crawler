@@ -30,7 +30,6 @@ var getSingle = function(info, type) {
 			}
 		});
 
-
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
