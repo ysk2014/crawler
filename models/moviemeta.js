@@ -5,15 +5,15 @@ var db = require('./base');
 
 var Moviemeta = db.define('moviemeta', {
 	id   : {
-		type: Sequelize.INTEGER,
+		type: Sequelize.INTEGER(11),
 		autoIncrement : true,
 		primaryKey: true
 	},
 	mid: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER(11)
 	},
 	metakey: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(20)
 	},
 	metavalue: {
 		type: Sequelize.TEXT

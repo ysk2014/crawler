@@ -7,28 +7,28 @@ var db = require('./base');
 
 var Task = db.define('task', {
 	id   : {
-		type: Sequelize.INTEGER,
+		type: Sequelize.INTEGER(11),
 		autoIncrement : true,
 		primaryKey: true
 	},
 	mid: {
-		type: Sequelize.INTEGER
+		type: Sequelize.INTEGER(11)
 	},
 	title: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(30)
 	},
 	year: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(20)
 	},
 	type: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.INTEGER(1),
 		defaultValue: 0
 	},
 	results: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(50)
 	},
 	addtime: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(20)
 	}
 });
 

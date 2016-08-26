@@ -4,8 +4,8 @@ var Sequelize = require('sequelize');
 var db = require('./base');
 
 var Logs = db.define('logs', {
-	id   : {
-		type: Sequelize.INTEGER,
+	id: {
+		type: Sequelize.INTEGER(11),
 		autoIncrement : true,
 		primaryKey: true
 	},
@@ -13,15 +13,15 @@ var Logs = db.define('logs', {
 		type: Sequelize.TEXT
 	},
 	subtype: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.INTEGER(1),
 		defaultValue: 0
 	},
 	type: {
-		type: Sequelize.INTEGER,
+		type: Sequelize.INTEGER(1),
 		defaultValue: 1
 	},
 	addtime: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING(20)
 	}
 });
 
