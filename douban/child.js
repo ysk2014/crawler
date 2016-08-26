@@ -66,11 +66,11 @@ module.exports = function(ids, callback) {
 		return getMovieBaseInfo(id);
 	}, function(errs, results) {
 		if (errs.length > 0) {
-			logger.error(JSON.stringify(errs));
+			logger.error(JSON.stringify(errs), 1);
 		}
 
 		if (results.length > 0) {
-			logger.info(JSON.stringify(results));
+			logger.info(JSON.stringify(results), 1);
 		}
 	});
 }
