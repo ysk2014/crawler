@@ -88,7 +88,7 @@ module.exports = function(data, type, callback) {
 		});
 
 		if (errs.length > 0) {
-			logger.error(JSON.stringify(errors));
+			logger.error(JSON.stringify(errors), 0);
 			email.sendErr(errors);
 		}
 
@@ -96,7 +96,7 @@ module.exports = function(data, type, callback) {
 			Promise.all(res.map(function(item) {
 				return saveData(item);
 			})).then(function() {
-				logger.info(JSON.stringify(res));
+				logger.info(JSON.stringify(res), 0);
 				email.sendMovies(res);
 				callback && callback();
 			}).catch(function(err) {
