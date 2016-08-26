@@ -12,6 +12,10 @@ var Logs = db.define('logs', {
 	content: {
 		type: Sequelize.TEXT
 	},
+	subtype: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0
+	},
 	type: {
 		type: Sequelize.INTEGER,
 		defaultValue: 1
