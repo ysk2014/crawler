@@ -33,6 +33,7 @@ function delTime() {
 	console.log('程序开始，获取定时数据');
 
 	sourceModel.getAll().then(function(source) {
+		console.log(source);
 		var data = {douban: '',website: {}};
 		source.forEach(function(item) {
 			if (item.code == 'douban') {
