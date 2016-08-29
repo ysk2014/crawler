@@ -36,14 +36,16 @@ function delTime() {
 
 		var data = {douban: '',website: {}};
 		source.forEach(function(item) {
-			console.log(item.title);
-			if (item.code == 'douban') {
-				data.douban = item.schedules;
-			} else {
-				if (data['website'][item.schedules]) {
-					data['website'][item.schedules].push(item.code);
+			if (item.schedules) {
+				console.log(item.title);
+				if (item.code == 'douban') {
+					data.douban = item.schedules;
 				} else {
-					data['website'][item.schedules] = [item.code];
+					if (data['website'][item.schedules]) {
+						data['website'][item.schedules].push(item.code);
+					} else {
+						data['website'][item.schedules] = [item.code];
+					}
 				}
 			}
 		});
