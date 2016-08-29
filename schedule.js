@@ -30,7 +30,7 @@ function website(times) {
 }
 
 function delTime() {
-	console.log('程序开始');
+	console.log('程序开始，获取定时数据');
 
 	sourceModel.getAll().then(function(source) {
 		var data = {douban: '',website: {}};
