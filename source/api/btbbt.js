@@ -7,7 +7,7 @@ var btbbt = function(info) {
 
 	var arr = [];
 
-	var url = 'http://www.btbbt.la/search-index-keyword-' + encodeURIComponent(info.title) + '.htm';
+	var url = 'http://www.btbtt.la/search-index-keyword-' + encodeURIComponent(info.title) + '.htm';
 
 	var promise = new Promise((resolve, reject) => {
 		superagent.get(url)
