@@ -7,7 +7,7 @@ var bttt = function(info) {
 
 	var arr = [];
 
-	var url = 'http://www.bttiantang.com/s.php';
+	var url = 'http://www.bttiantang.org/s.php';
 
 	var promise = new Promise((resolve, reject) => {
 		superagent.get(url)

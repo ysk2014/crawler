@@ -9,6 +9,7 @@ var common = function(content, subtype, type) {
 	var opts = {
 		content: content,
 		type: type,
+		subtype: subtype,
 		addtime: Math.floor((new Date()).getTime()/1000)
 	};
 	logModel.add(opts).catch(function(err) {
