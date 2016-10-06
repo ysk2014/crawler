@@ -1,10 +1,7 @@
 
 var path = require('path');
 
-var logModel = require(path.join(__dirname, '../models/logs'));
-
-
-var common = function(content, subtype, type) {
+var common = function(logModel, content, subtype, type) {
 	var content = content || '';
 	var opts = {
 		content: content,
@@ -17,11 +14,19 @@ var common = function(content, subtype, type) {
 	});
 }
 
-module.exports = {
-	info: function(content, subtype) {
-		common(content, subtype, 1);
-	},
-	error: function(content, subtype) {
-		common(content, subtype, 0);
+module.exports = function(type) {
+
+	if (type && type=='movie') {
+		var logModel = require(path.join(__dirname, '../models/movie/logs'));
+	} else {
+		var logModel = require(path.join(__dirname, '../models/logs'));
+	}
+	return {
+		info: function(content, subtype) {
+			common(logModel, content, subtype, 1);
+		},
+		error: function(content, subtype) {
+			common(logModel, content, subtype, 0);
+		}
 	}
 }

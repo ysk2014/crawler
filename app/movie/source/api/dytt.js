@@ -72,7 +72,7 @@ var dytt = function(info) {
 						var title = $title.html().split('《')[1];
 						if (title.indexOf('<font color="red">'+info.title+'</font>')==0 && regexp.test(desc)) {
 							var obj = {};
-							obj.title = $title.html();
+							obj.title = '电影天堂';
 							obj.href = 'http://s.dydytt.net' + $title.attr('href');
 							arr.push(obj);
 						}
@@ -84,7 +84,7 @@ var dytt = function(info) {
 				var results = {
 					error: 0,
 					form: 'dytt',
-					data: {id: info.mid, sources:arr}
+					data: arr
 				};
 			}
 

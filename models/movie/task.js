@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 
 var path = require('path');
 
-var db = require('./base');
+var db = require('../base')('movie');
 
 var Task = db.define('task', {
 	id   : {
@@ -44,13 +44,12 @@ module.exports = {
 	getAll: function() {
 		return Task.findAll();
 	},
-	getAllByResults: function(type,expir) {
-		var source = require(path.join(__dirname, '../config/app')).source;
+	getAllByResults: function(types,expir) {
 
 		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.addtime >= "+expir+" and task.results is NULL";
 
-		type.forEach(function(item, i) {
-			if (!source[type[i]].class) {
+		types.forEach(function(item, i) {
+			if (item.times>0) {
 				if (i==0) {
 					sql += " or task.results not like '%"+ item +"%'";
 				} else {

@@ -4,8 +4,6 @@ var nodemailer  = require("nodemailer");
 var _ = require('lodash');
 var fs = require('fs');
 var settings = require(path.join(__dirname, '../config/mail'));
-var source = require(path.join(__dirname, '../config/app')).source;
-
 
 var user = settings.username, pass = settings.password;
 
@@ -23,7 +21,7 @@ var smtpTransport = nodemailer.createTransport({
 var renderHTML = function(data) {
 	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
 	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
-	var tplData = _.template(tpl)({data:data, source: source});
+	var tplData = _.template(tpl)({data:data});
 	return _.template(base)({data: tplData});
 }
 

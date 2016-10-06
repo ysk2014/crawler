@@ -1,7 +1,7 @@
 
 var Sequelize = require('sequelize');
 
-var db = require('./base');
+var db = require('../base')('movie');
 
 var Movie = db.define('movie', {
 	id   : {
@@ -11,7 +11,7 @@ var Movie = db.define('movie', {
 	title: {
 		type: Sequelize.STRING(50)
 	},
-	origin_title: {
+	original_title: {
 		type: Sequelize.STRING(50)
 	},
 	alt: {
@@ -54,6 +54,10 @@ var Movie = db.define('movie', {
 	casts: {
 		type: Sequelize.TEXT
 	},
+	source: {
+		type: Sequelize.INTEGER(1),
+		defaultValue: 0
+	},
 	addtime: {
 		type: Sequelize.STRING(20)
 	}
@@ -67,6 +71,19 @@ module.exports = {
 	add: function(params) {
 		params.addtime = Math.floor((new Date()).getTime());
 		return Movie.create(params);
+	},
+	update: function(params) {
+		return Movie.findOne({
+			where: {
+				id: params.mid
+			}
+		}).then(function(movie) {
+			return movie.update({
+				source: params.source
+			},{
+				fields: ['source']
+			});
+		});
 	},
 	checkIds: function(ids) {
 		return Movie.findAll({

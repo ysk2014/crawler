@@ -1,7 +1,7 @@
 
 var Sequelize = require('sequelize');
 
-var db = require('./base');
+var db = require('../base')('movie');
 
 var Moviemeta = db.define('moviemeta', {
 	id   : {

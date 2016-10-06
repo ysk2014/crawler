@@ -1,7 +1,7 @@
 
 var Sequelize = require('sequelize');
 
-var db = require('../base')('myadmin');
+var db = require('../base')('movie');
 
 var Logs = db.define('logs', {
 	id: {
@@ -12,12 +12,13 @@ var Logs = db.define('logs', {
 	content: {
 		type: Sequelize.TEXT
 	},
-	mode: {
-		type: Sequelize.STRING(20)
+	subtype: {
+		type: Sequelize.INTEGER(1),
+		defaultValue: 0
 	},
 	type: {
 		type: Sequelize.INTEGER(1),
-		defaultValue: 0   //crawler
+		defaultValue: 1
 	},
 	addtime: {
 		type: Sequelize.STRING(20)
