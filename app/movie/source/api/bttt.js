@@ -33,7 +33,6 @@ var bttt = function(info) {
 						data: 'id为' + info.mid + '的电影爬bt天堂数据失败，原因：' + err,
 						from: 'bttt'
 					};
-					console.log(results.data);
 					return resolve(results);
 				}
 

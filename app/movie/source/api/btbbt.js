@@ -25,7 +25,6 @@ var btbbt = function(info) {
 						data: 'id为' + info.mid + '的电影爬bt之家数据失败，原因：' + err,
 						from: 'btbbt'
 					};
-					console.log(results.data);
 					return resolve(results);
 				}
 
