@@ -9,11 +9,11 @@ global._ = require('lodash');
 
 global.ROOT = __dirname;
 
-global.console.log = function(content) {
-	var now = new Date();
-	var time = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
-	process.stdout.write('['+time+'] '+content+'\n');
-}
+// global.console.log = function(content) {
+// 	var now = new Date();
+// 	var time = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()+' '+now.getHours()+':'+now.getMinutes()+':'+now.getSeconds();
+// 	process.stdout.write('['+time+'] '+content+'\n');
+// }
 
 global.logger = require(path.join(__dirname, 'log'));
 
