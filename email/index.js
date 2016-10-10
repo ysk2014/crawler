@@ -1,9 +1,10 @@
 
 var path = require('path');
 var nodemailer  = require("nodemailer");
-var _ = require('lodash');
-var fs = require('fs');
+// var _ = require('lodash');
+// var fs = require('fs');
 var settings = require(path.join(__dirname, '../config/mail'));
+var render = require('./render');
 
 var user = settings.username, pass = settings.password;
 
@@ -18,12 +19,13 @@ var smtpTransport = nodemailer.createTransport({
 });
 
 
-var renderHTML = function(data) {
-	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
-	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
-	var tplData = _.template(tpl)({data:data});
-	return _.template(base)({data: tplData});
-}
+// var renderHTML = function(data) {
+// 	var tpl = fs.readFileSync(path.join(__dirname, '../views/email/info.html'), 'utf8');
+// 	var base = fs.readFileSync(path.join(__dirname, '../views/email/base.html'), 'utf8');
+// 	var tplData = _.template(tpl)({data:data});
+// 	return _.template(base)({data: tplData});
+// }
+
 
 module.exports = {
 	sendMovies: function(data) {
@@ -32,7 +34,25 @@ module.exports = {
 			    from    : 'MovieTime<'+user+'>',
 			    to      : settings.to,
 			    subject : '网上正在热映的电影已经有资源',
-			    html    : renderHTML(data)
+			    html    : render('info',data)
+			}, function(error, res) {
+			    if (error) {
+			    	reject(error);
+			    } else {
+			    	resolve(res);
+			    }
+			});
+		});
+
+		return promise;
+	},
+	sendUserMovies: function(data) {
+		var promise = new Promise(function(resolve, reject) {
+			smtpTransport.sendMail({
+			    from    : 'MovieTime<'+user+'>',
+			    to      : settings.to,
+			    subject : '网上正在热映的电影已经有资源',
+			    html    : render('week',data)
 			}, function(error, res) {
 			    if (error) {
 			    	reject(error);
