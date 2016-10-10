@@ -31,6 +31,20 @@ module.exports = {
 	table: Logs,
 	add: function(params) {
 		return Logs.create(params);
+	},
+
+	getAllByWeek: function() {
+		var now = Math.floor((new Date()).getTime()/1000);
+		var old = now - 60*60*24*7;
+		return Logs.fingAll({
+			where: {
+				addtime: {
+					$between: [old, now]
+				},
+				subtype: 1,
+				type: 1
+			}
+		});
 	}
 };
 

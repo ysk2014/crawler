@@ -26,14 +26,27 @@ function website(times) {
 	}
 }
 
+function sendEmail(time) {
+	if (time.length<=0) return false;
+
+	schedule.scheduleJob(time, function() {
+		var sendEmail = require(path.join(__dirname, 'sendEmail'));
+		sendEmail().then(function(data) {
+			console.log(data);
+		});
+	})
+}
+
 module.exports = function(sources) {
-	var movieTimes = {douban: '',website: {}};
+	var movieTimes = {douban: '',website: {}, email: ''};
 	
 	sources.forEach(function(item) {
 		if (item.schedules) {
 			console.log(item.title);
 			if (item.code == 'douban') {
 				movieTimes.douban = item.schedules;
+			} else if (item.code=='email') {
+				movieTimes.email = item.schedules;
 			} else {
 				if (movieTimes['website'][item.schedules]) {
 					movieTimes['website'][item.schedules].push(item);
@@ -47,4 +60,6 @@ module.exports = function(sources) {
 	douban(movieTimes.douban);
 
 	website(movieTimes.website);
+
+	sendEmail(movieTimes.email);
 }
