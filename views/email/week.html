@@ -19,8 +19,10 @@
 						<td style="border-collapse: collapse;">
 							下载资源：
 							<% _.each(movie.data, function(item) { %>
-								<% _.each(item.sources, function(sc) { %>
+								<% _.each(item.metavalue, function(meta) { %>
+									<% _.each(meta.sources, function(sc) { %>
 									<a href="<%= sc.href %>" target="_blank" style="margin-left: 10px;"><%= sc.title %> </a>
+									<%})%>
 								<% }); %>
 							<% }); %>
 						</td>
