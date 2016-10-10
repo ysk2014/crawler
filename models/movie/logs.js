@@ -41,7 +41,7 @@ module.exports = {
 				addtime: {
 					$between: [old, now]
 				},
-				subtype: 1,
+				subtype: 0,
 				type: 1
 			}
 		});
