@@ -36,7 +36,7 @@ module.exports = {
 	getAllByWeek: function() {
 		var now = Math.floor((new Date()).getTime()/1000);
 		var old = now - 60*60*24*7;
-		return Logs.fingAll({
+		return Logs.findAll({
 			where: {
 				addtime: {
 					$between: [old, now]
