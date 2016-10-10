@@ -74,7 +74,6 @@ module.exports = {
 
 			data.forEach(function(item) {
 
-				item.movie.addtime = moment(parseInt(item.movie.addtime)*1000).format('YYYY-MM-DD HH:mm:ss');
 				item.movie.images = JSON.parse(item.movie.images);
 				item.metavalue = JSON.parse(item.metavalue);
 
