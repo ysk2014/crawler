@@ -16,7 +16,7 @@ module.exports = function(tplName,data) {
 
 	var ext = extname(tplName);
 
-	var filename = name;
+	var filename = tplName;
 
 	if (!ext) {
 		ext = '.html';
