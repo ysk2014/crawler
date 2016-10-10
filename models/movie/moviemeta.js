@@ -82,7 +82,7 @@ module.exports = {
 					var index = cacheMid.indexOf(item.mid);
 					rows[index].data.push({
 						mid: item.mid,
-						movie: item.movie,
+						mv: item.movie,
 						data: [{
 							metakey: item.metakey,
 							metavalue: item.metavalue,
@@ -92,7 +92,7 @@ module.exports = {
 				} else {
 					rows.push({
 						mid: item.mid,
-						movie: item.movie,
+						mv: item.movie,
 						data: [{
 							metakey: item.metakey,
 							metavalue: item.metavalue,
