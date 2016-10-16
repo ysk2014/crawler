@@ -13,7 +13,7 @@ var source = {};
 var getTaskData = function(types) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(ROOT, 'models/movie/task'));
-		var time = Math.floor((new Date()).getTime()/1000 - 60*24*60*60);
+		var time = Math.floor((new Date()).getTime()/1000 - 30*24*60*60);
 		
 		taskModel.getAllByResults(types, time).then(function(res) {
 			resolve(res);
