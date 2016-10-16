@@ -51,9 +51,15 @@ module.exports = {
 		types.forEach(function(item, i) {
 			if (item.times>0) {
 				if (i==0) {
-					sql += " or task.results not like '%"+ item +"%'";
+					sql += " or task.results like '%"+ item.code +"%'";
 				} else {
-					sql += " and task.results not like '%"+ item +"%'";
+					sql += " and task.results like '%"+ item.code +"%'";
+				}
+			} else {
+				if (i==0) {
+					sql += " or task.results not like '%"+ item.code +"%'";
+				} else {
+					sql += " and task.results not like '%"+ item.code +"%'";
 				}
 			}
 		});
