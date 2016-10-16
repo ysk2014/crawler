@@ -7,16 +7,16 @@ var path = require('path');
 * 
 * @return array
 */
-var getDownload = function(info, types) {
-	return Promise.all(types.map(function(item) {
+var getDownload = function(info) {
+	return Promise.all(info.clawler.map(function(item) {
 		var item = require(path.join(__dirname, 'api/'+item.code));
 		return item(info);
 	}));
 }
 
 
-var getSingle = function(info, types) {
-	return getDownload(info, types).then(function(results) {
+var getSingle = function(info) {
+	return getDownload(info).then(function(results) {
 		
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
@@ -28,6 +28,8 @@ var getSingle = function(info, types) {
 			}
 		});
 
+		delete info.clawler;
+		
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
@@ -41,10 +43,10 @@ var saveData = function(movieInfo) {
 	var movieModel = require(path.join(ROOT, 'models/movie'));
 	var taskModel = require(path.join(ROOT, 'models/movie/task'));
 
-	var results = movieInfo.results ? movieInfo.results.split(',') : [];
+	var results = movieInfo.results ? JSON.parse(movieInfo.results) : {};
 
-	var froms = movieInfo.data.map(function(val) {
-		return val.from;
+	movieInfo.data.forEach(function(val) {
+		results[val.from] = val.sources.length;
 	});
 
 	return Promise.all(movieInfo.data.map(function(item, i) {
@@ -70,14 +72,14 @@ var saveData = function(movieInfo) {
 	}).then(function(res) {
 		return taskModel.update({
 			mid: movieInfo.mid, 
-			results: _.union(results, froms).join(',')
+			results: JSON.stringify(results)
 		});
 	});
 };
 
-module.exports = function(data, types, callback) {
+module.exports = function(data, callback) {
 	mapLimit(data, 2, function(info) {
-		return getSingle(info, types);
+		return getSingle(info);
 	}, function(errs, results) {
 		var email = require(path.join(ROOT, 'email'));
 

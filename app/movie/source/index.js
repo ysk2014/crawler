@@ -1,6 +1,7 @@
 
 var path = require('path');
 var fs = require('fs');
+var filter = require(path.join(__dirname,'./filter'));
 
 var source = {};
 
@@ -11,17 +12,7 @@ var source = {};
 * @return array
 */
 var getTaskData = function(types) {
-	var promise = new Promise(function(resolve, reject) {
-		var taskModel = require(path.join(ROOT, 'models/movie/task'));
-		var time = Math.floor((new Date()).getTime()/1000 - 30*24*60*60);
-		
-		taskModel.getAllByResults(types, time).then(function(res) {
-			resolve(res);
-		}).catch(function(err) {
-			reject(err);
-		});
-	});
-	return promise;
+	return filter.getTaskData(types);
 }
 
 
@@ -52,7 +43,7 @@ source.getDownloads = function(types) {
 			console.log(data.length);
 
 			var child = require(path.join(__dirname, 'child'));
-			child(data, types, function() {
+			child(data, function() {
 				console.log('资源爬虫结束');
 			});
 		} else {
