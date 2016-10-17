@@ -27,8 +27,9 @@ function main() {
 			var ctrl = require(path.join(App,d));
 			ctrl(data[d]);
 		}
-		return false;
+
 	}).catch(function(err) {
+		console.log('11')
 		console.log(err);
 	});
 }
