@@ -29,8 +29,7 @@ function main() {
 		}
 
 	}).catch(function(err) {
-		console.log('11')
-		console.log(err);
+		console.error(err);
 	});
 }
 
