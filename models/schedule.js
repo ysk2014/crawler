@@ -46,6 +46,8 @@ module.exports = {
 			where: {
 				close: 0
 			}
+		}).catch(function(err) {
+			console.error(err);
 		});
 	}
 };
