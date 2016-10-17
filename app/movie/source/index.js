@@ -50,11 +50,11 @@ source.getDownloads = function(types) {
 			console.log('没有获取到数据, 资源爬虫关闭');
 		}
 	}).catch(function(err) {
-		console.log(err);
+		console.error(err);
 		logger('movie').error(JSON.stringify(err));
 		var email = require(path.join(ROOT, 'email'));
 		email.sendErr(err);
-		console.log('资源爬虫结束');
+		console.error('资源爬虫结束');
 	});
 };
 

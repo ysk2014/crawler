@@ -108,7 +108,7 @@ module.exports = function(data, callback) {
 				email.sendMovies(res);
 				callback && callback();
 			}).catch(function(err) {
-				console.log(err);
+				console.error(err);
 				email.sendErr(err);
 				callback && callback();
 			});

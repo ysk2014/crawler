@@ -26,7 +26,7 @@ douban.getInTheaters = function() {
 			resolve('豆瓣爬虫完成');
 		});
 	}).catch(function(err) {
-		console.log(err);
+		console.error(err);
 	});
 
 	return promise;

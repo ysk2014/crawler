@@ -22,11 +22,11 @@ module.exports = function(keyword) {
 			var result = {douban:data,source:res}
 			return result;
 		}).catch(function(err) {
-			console.log('资源搜索'+keyword+'结束');
-			console.log(err);
+			console.error('资源搜索'+keyword+'结束');
+			console.error(err);
 		});
 	}).catch(function(err) {
-		console.log('豆瓣搜索'+keyword+'结束');
-		console.log(err);
+		console.error('豆瓣搜索'+keyword+'结束');
+		console.error(err);
 	});
 }

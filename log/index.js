@@ -10,7 +10,7 @@ var common = function(logModel, content, subtype, type) {
 		addtime: Math.floor((new Date()).getTime()/1000)
 	};
 	logModel.add(opts).catch(function(err) {
-		console.log(err);
+		console.error(err);
 	});
 }
 

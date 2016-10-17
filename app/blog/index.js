@@ -15,7 +15,7 @@ function singleDeal(url, index) {
 	var pm = new Promise(function(reslove, reject) {
 		superagent.get(url,function(err,res) {
 			if (err) {
-				console.log(err);
+				console.error(err);
 				return reslove(err);
 			}
 
@@ -43,8 +43,8 @@ module.exports = function(source) {
 			});
 			console.log('爬取博客图片结束');
 		}).catch(function(err) {
-			console.log('爬取博客图片出错：');
-			console.log(err);
+			console.error('爬取博客图片出错：');
+			console.error(err);
 		});
 	})
 }

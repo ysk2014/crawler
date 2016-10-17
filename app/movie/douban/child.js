@@ -54,7 +54,7 @@ var getMovieBaseInfo = function(id) {
 				reject('id为' + data.id + '插入数据失败，原因:' + err);
 			});
 		}).catch(function(err) {
-			console.log(err);
+			console.error(err);
 		});
 	});
 	return promise;
