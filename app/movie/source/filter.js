@@ -25,7 +25,7 @@ function filterBySource(res,types) {
 			task.results = JSON.parse(task.results);
 			task.crawler = [];
 			types.forEach(function(type) {
-				if (!task.results[type] || task.results.[type] < 10) {
+				if (!task.results[type] || task.results[type] < 10) {
 					task.crawler.push(type);
 				}
 			});
