@@ -23,8 +23,13 @@ filter.getTaskData = function(types) {
 	return queryTask(types).then(function(res) {
 		var tasks = [];
 		res.forEach(function(task) {
-			if (task.results) {
-				task.results = JSON.parse(task.results);
+			if (task.results != null) {
+				try {
+					task.results = JSON.parse(task.results);
+				} catch (err) {
+					
+				}
+				
 				console.log(task.results);
 				task.crawler = [];
 				types.forEach(function(type) {
