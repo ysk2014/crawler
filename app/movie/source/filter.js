@@ -28,10 +28,12 @@ filter.getTaskData = function(types) {
 				console.log(task.results);
 				task.crawler = [];
 				types.forEach(function(type) {
+					console.log(task.results[type.code]);
 					if (!task.results[type.code] || task.results[type.code] < 10) {
 						task.crawler.push(type);
 					}
 				});
+				console.log(task);
 				tasks.push(task);
 			} else {
 				task.crawler = types;
