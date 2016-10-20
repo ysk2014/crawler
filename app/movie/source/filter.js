@@ -39,6 +39,7 @@ filter.getTaskData = function(types) {
 			}
 		});
 
+		console.log(tasks);
 		return tasks;
 	});
 }
