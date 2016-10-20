@@ -17,7 +17,6 @@ var getDownload = function(info) {
 
 var getSingle = function(info) {
 	return getDownload(info).then(function(results) {
-		console.log(info);
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
 		results.forEach(function(result) {
@@ -78,6 +77,7 @@ var saveData = function(movieInfo) {
 };
 
 module.exports = function(data, callback) {
+	console.log(data);
 	mapLimit(data, 2, function(info) {
 		return getSingle(info);
 	}, function(errs, results) {
