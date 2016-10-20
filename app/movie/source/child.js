@@ -42,7 +42,7 @@ var saveData = function(movieInfo) {
 	var movieModel = require(path.join(ROOT, 'models/movie'));
 	var taskModel = require(path.join(ROOT, 'models/movie/task'));
 
-	var results = movieInfo.results ? JSON.parse(movieInfo.results) : {};
+	var results = movieInfo.results ? movieInfo.results : {};
 
 	movieInfo.data.forEach(function(val) {
 		results[val.from] = val.sources.length;
@@ -100,6 +100,7 @@ module.exports = function(data, callback) {
 		}
 
 		if (res.length > 0) {
+			console.log(res.length);
 			Promise.all(res.map(function(item) {
 				return saveData(item);
 			})).then(function() {
