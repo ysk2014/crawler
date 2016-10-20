@@ -17,7 +17,7 @@ var getDownload = function(info) {
 
 var getSingle = function(info) {
 	return getDownload(info).then(function(results) {
-		
+		console.log(info);
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
 		results.forEach(function(result) {
@@ -101,7 +101,6 @@ module.exports = function(data, callback) {
 		}
 
 		if (res.length > 0) {
-			console.log(res);
 			Promise.all(res.map(function(item) {
 				return saveData(item);
 			})).then(function() {

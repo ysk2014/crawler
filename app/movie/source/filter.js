@@ -32,7 +32,6 @@ filter.getTaskData = function(types) {
 				
 				task.crawler = [];
 				types.forEach(function(type) {
-					console.log(task.results[type.code]);
 					if (!task.results[type.code] || task.results[type.code] < 10) {
 						task.crawler.push(type);
 					}
