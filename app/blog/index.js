@@ -27,6 +27,7 @@ function singleDeal(url, index) {
 }
 
 module.exports = function(source) {
+	console.log('获取爬去博客时间');
 	var j = schedule.scheduleJob(source[0].schedules,function() {
 		console.log('爬去博客图片开始');
 
