@@ -21,23 +21,24 @@ function queryTask(types) {
 filter.getTaskData = function(types) {
 	
 	return queryTask(types).then(function(res) {
-		console.log(res);
 		var tasks = [];
 		res.forEach(function(task) {
 			if (task.results) {
 				task.results = JSON.parse(task.results);
+				console.log(task.results);
 				task.crawler = [];
 				types.forEach(function(type) {
-					if (!task.results[type] || task.results[type] < 10) {
+					if (!task.results[type.code] || task.results[type.code] < 10) {
 						task.crawler.push(type);
 					}
 				});
+				tasks.push(task);
 			} else {
 				task.crawler = types;
 				tasks.push(task);
 			}
 		});
-		console.log(tasks);
+
 		return tasks;
 	});
 }
