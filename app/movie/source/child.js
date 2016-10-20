@@ -101,6 +101,7 @@ module.exports = function(data, callback) {
 		}
 
 		if (res.length > 0) {
+			console.log(res);
 			Promise.all(res.map(function(item) {
 				return saveData(item);
 			})).then(function() {

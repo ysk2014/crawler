@@ -30,7 +30,6 @@ filter.getTaskData = function(types) {
 					
 				}
 				
-				console.log(task.results);
 				task.crawler = [];
 				types.forEach(function(type) {
 					console.log(task.results[type.code]);
@@ -38,7 +37,6 @@ filter.getTaskData = function(types) {
 						task.crawler.push(type);
 					}
 				});
-				console.log(task);
 				tasks.push(task);
 			} else {
 				task.crawler = types;
@@ -46,7 +44,6 @@ filter.getTaskData = function(types) {
 			}
 		});
 
-		console.log(tasks);
 		return tasks;
 	});
 }
