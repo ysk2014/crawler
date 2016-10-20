@@ -8,7 +8,7 @@ var path = require('path');
 * @return array
 */
 var getDownload = function(info) {
-	return Promise.all(info.clawler.map(function(item) {
+	return Promise.all(info.crawler.map(function(item) {
 		var item = require(path.join(__dirname, 'api/'+item.code));
 		return item(info);
 	}));
@@ -77,7 +77,6 @@ var saveData = function(movieInfo) {
 };
 
 module.exports = function(data, callback) {
-	console.log(data);
 	mapLimit(data, 2, function(info) {
 		return getSingle(info);
 	}, function(errs, results) {
