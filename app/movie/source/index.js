@@ -11,9 +11,6 @@ var source = {};
 * 
 * @return array
 */
-var getTaskData = function(types) {
-	return filter.getTaskData(types);
-}
 
 
 var requireDir = function(dir) {
@@ -37,7 +34,7 @@ var requireDir = function(dir) {
 */
 source.getDownloads = function(types) {
 	console.log('资源爬虫开始');
-	return getTaskData(types).then(function(data) {
+	return filter.getTaskData(types).then(function(data) {
 		if (data.length>0) {
 			
 			console.log(data.length);
