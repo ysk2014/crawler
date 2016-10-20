@@ -9,10 +9,8 @@ function queryTask(types) {
 		var time = Math.floor((new Date()).getTime()/1000 - 30*24*60*60);
 
 		taskModel.getAllByResults(types, time).then(function(res) {
-			console.log(res);
 			resolve(res);
 		}).catch(function(err) {
-			console.error('cuo'+err);
 			reject(err);
 		});
 	});
@@ -38,7 +36,7 @@ filter.getTaskData = function(types) {
 				tasks.push(task);
 			}
 		});
-
+		console.log(tasks);
 		return tasks;
 	});
 }
