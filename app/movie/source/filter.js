@@ -36,7 +36,10 @@ filter.getTaskData = function(types) {
 						task.crawler.push(type);
 					}
 				});
-				tasks.push(task);
+				
+				if (task.crawler.length>0) {
+					tasks.push(task);
+				}
 			} else {
 				task.crawler = types;
 				tasks.push(task);
