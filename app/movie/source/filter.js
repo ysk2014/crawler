@@ -21,6 +21,7 @@ function queryTask(types) {
 filter.getTaskData = function(types) {
 	
 	return queryTask(types).then(function(res) {
+		console.log(res);
 		var tasks = [];
 		res.forEach(function(task) {
 			if (task.results) {
