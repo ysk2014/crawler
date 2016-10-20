@@ -11,6 +11,7 @@ function queryTask(types) {
 		taskModel.getAllByResults(types, time).then(function(res) {
 			resolve(res);
 		}).catch(function(err) {
+			console.error('cuo'+err);
 			reject(err);
 		});
 	});
@@ -18,31 +19,26 @@ function queryTask(types) {
 }
 
 
-function filterBySource(res,types) {
-	var tasks = [];
-	res.forEach(function(task) {
-		if (task.results) {
-			task.results = JSON.parse(task.results);
-			task.crawler = [];
-			types.forEach(function(type) {
-				if (!task.results[type] || task.results[type] < 10) {
-					task.crawler.push(type);
-				}
-			});
-		} else {
-			task.crawler = types;
-			tasks.push(task);
-		}
-	});
-
-	return tasks;
-}
-
-
 filter.getTaskData = function(types) {
 	
 	return queryTask(types).then(function(res) {
-		return filterBySource(res, types);
+		var tasks = [];
+		res.forEach(function(task) {
+			if (task.results) {
+				task.results = JSON.parse(task.results);
+				task.crawler = [];
+				types.forEach(function(type) {
+					if (!task.results[type] || task.results[type] < 10) {
+						task.crawler.push(type);
+					}
+				});
+			} else {
+				task.crawler = types;
+				tasks.push(task);
+			}
+		});
+
+		return tasks;
 	});
 }
 
