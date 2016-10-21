@@ -26,7 +26,7 @@ douban.getInTheaters = function() {
 			resolve('豆瓣爬虫完成');
 		});
 	}).catch(function(err) {
-		console.error(err);
+		console.error(err.stack || err);
 	});
 
 	return promise;
@@ -45,7 +45,7 @@ douban.searchMovie = function(keyword) {
 			resolve(movies);
 		});
 	}).catch(function(err) {
-		console.log(err);
+		console.log(err.stack || err);
 	});
 
 	return promise;

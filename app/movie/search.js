@@ -27,6 +27,6 @@ module.exports = function(keyword) {
 		});
 	}).catch(function(err) {
 		console.error('豆瓣搜索'+keyword+'结束');
-		console.error(err);
+		console.error(err.stack || err);
 	});
 }

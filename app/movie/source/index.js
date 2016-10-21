@@ -47,7 +47,7 @@ source.getDownloads = function(types) {
 			console.log('没有获取到数据, 资源爬虫关闭');
 		}
 	}).catch(function(err) {
-		console.error(err);
+		console.error(err.stack || err);
 		logger('movie').error(JSON.stringify(err));
 		var email = require(path.join(ROOT, 'email'));
 		email.sendErr(err);

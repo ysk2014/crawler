@@ -22,6 +22,6 @@ module.exports = function() {
 	}).then(function(data) {
 		return email.sendUserMovies(data);
 	}).catch(function(err) {
-		console.error(err);
+		console.error(err.stack || err);
 	});
 }
