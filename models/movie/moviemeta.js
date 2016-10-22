@@ -18,6 +18,12 @@ var Moviemeta = db.define('moviemeta', {
 	},
 	metavalue: {
 		type: Sequelize.TEXT
+	},
+	updatetime: {
+		type: Sequelize.STRING(20)
+	},
+	addtime: {
+		type: Sequelize.STRING(20)
 	}
 });
 
@@ -38,11 +44,16 @@ module.exports = {
 			}
 		}).then(function(task) {
 			if (task) {
-				return task.update({
-					metavalue: params.metavalue
-				},{
-					fields: ['metavalue']
-				});
+				if (task.metavalue != params.metavalue) {
+					return task.update({
+						metavalue: params.metavalue,
+						updatetime: params.updatetime
+					},{
+						fields: ['metavalue','updatetime']
+					});
+				} else {
+					return true;
+				}
 			} else {
 				return Moviemeta.create(params);
 			}

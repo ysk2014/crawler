@@ -54,7 +54,9 @@ var saveData = function(movieInfo) {
 			var opt = {
 				mid: movieInfo.mid,
 				metakey: item.from,
-				metavalue: JSON.stringify(item.sources)
+				metavalue: JSON.stringify(item.sources),
+				updatetime: (new Date()).getTime(),
+				addtime: (new Date()).getTime()
 			};
 			moviemetaModel.update(opt).then(function(res) {
 				resolve(res);
