@@ -28,31 +28,13 @@ var smtpTransport = nodemailer.createTransport({
 
 
 module.exports = {
-	sendMovies: function(data) {
+	sendMovies: function(tpl, data) {
 		var promise = new Promise(function(resolve, reject) {
 			smtpTransport.sendMail({
 			    from    : 'MovieTime<'+user+'>',
 			    to      : settings.to,
 			    subject : '网上正在热映的电影已经有资源',
-			    html    : render('info',data)
-			}, function(error, res) {
-			    if (error) {
-			    	reject(error);
-			    } else {
-			    	resolve(res);
-			    }
-			});
-		});
-
-		return promise;
-	},
-	sendUserMovies: function(data) {
-		var promise = new Promise(function(resolve, reject) {
-			smtpTransport.sendMail({
-			    from    : 'MovieTime<'+user+'>',
-			    to      : settings.to,
-			    subject : '网上正在热映的电影已经有资源',
-			    html    : render('week',data)
+			    html    : render(tpl,data)
 			}, function(error, res) {
 			    if (error) {
 			    	reject(error);

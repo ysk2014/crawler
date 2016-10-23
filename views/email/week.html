@@ -1,9 +1,14 @@
-
+<% if(data.add.length) { %>
 <table width="640" cellpadding="0" cellspacing="0" border="0">
 	<tr style="border-collapse: collapse;">
 		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"><h3>本周新增的资源</h3></td>
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+	</tr>
+	<tr style="border-collapse: collapse;">
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
 		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;">
-			<% _.each(data, function(movie) { %>
+			<% _.each(data.add, function(movie) { %>
 				<table width="580" cellpadding="0" cellspacing="0" border="0" style=" padding-top: 10px; padding-bottom: 20px; border-top: 1px solid #ccc;">
 					<tr style="border-collapse: collapse;">
 						<td width="120" rowspan="4" style="border-collapse: collapse;"><img src="<%= movie.mv.images.medium %>" alt="" /></td>
@@ -19,10 +24,8 @@
 						<td style="border-collapse: collapse;">
 							下载资源：
 							<% _.each(movie.data, function(item) { %>
-								<% _.each(item.metavalue, function(meta) { %>
-									<% _.each(meta.sources, function(sc) { %>
+								<% _.each(item.metavalue, function(sc) { %>
 									<a href="<%= sc.href %>" target="_blank" style="margin-left: 10px;"><%= sc.title %> </a>
-									<%})%>
 								<% }); %>
 							<% }); %>
 						</td>
@@ -33,4 +36,45 @@
 		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
 	</tr>
 </table>
+<% } %>
+
+<% if(data.update.length) { %>
+<table width="640" cellpadding="0" cellspacing="0" border="0">
+	<tr style="border-collapse: collapse;">
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"><h3>本周更新的资源</h3></td>
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+	</tr>
+	<tr style="border-collapse: collapse;">
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+		<td width="580" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;">
+			<% _.each(data.update, function(movie) { %>
+				<table width="580" cellpadding="0" cellspacing="0" border="0" style=" padding-top: 10px; padding-bottom: 20px; border-top: 1px solid #ccc;">
+					<tr style="border-collapse: collapse;">
+						<td width="120" rowspan="4" style="border-collapse: collapse;"><img src="<%= movie.mv.images.medium %>" alt="" /></td>
+						<td style="border-collapse: collapse;">名称：《<%= movie.mv.title %>》</td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;0">主演：<%= movie.mv.casts %></td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;0">豆瓣评分：<%= movie.mv.rating %></td>
+					</tr>
+					<tr style="border-collapse: collapse;">
+						<td style="border-collapse: collapse;">
+							下载资源：
+							<% _.each(movie.data, function(item) { %>
+								<% _.each(item.metavalue, function(sc) { %>
+									<a href="<%= sc.href %>" target="_blank" style="margin-left: 10px;"><%= sc.title %> </a>
+								<% }); %>
+							<% }); %>
+						</td>
+					</tr>
+				</table>
+			<% }); %>
+		</td>
+		<td class="w30" width="30" style="border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;"></td>
+	</tr>
+</table>
+<% } %>
 

@@ -70,6 +70,23 @@ module.exports = {
 		});
 	},
 
+	/**
+	*	返回数据
+	*	[
+	*		{
+	*			mid: 电影id,
+	*			mv: 电影所有信息
+	*			data: [
+	*				{
+	*					metakey: metakey,
+	*					metavalue: metavalue,
+	*					id: metaid
+	*				}
+	*			]
+	*		}
+	*	]
+	*/
+
 	getAllByMids: function(ids) {
 
 		return Moviemeta.findAll({
@@ -110,6 +127,108 @@ module.exports = {
 						}]
 					});
 					cacheMid.push(item.mid);
+				}
+			});
+
+			return rows;
+		});
+	},
+
+	/**
+	*	返回数据
+	*	{
+	*		add: [{
+	*			mid: 电影id,
+	*			mv: 电影所有信息
+	*			data: [
+	*				{
+	*					metakey: metakey,
+	*					metavalue: metavalue,
+	*					id: metaid
+	*				}
+	*			]
+	*		}],
+	*		update: [{****同上*****}]
+	*	}
+	*/
+	getAllByWeek: function() {
+
+		var now = new Date();
+		var year = now.getFullYear();
+		var month = now.getMonth();
+		var day = now.getDate();
+		var hour = now.getHours();
+
+		var nowWeek = (new Date(year, month, day, hour)).getTime();
+		var preWeek = (new Date(year, month, day-7, hour)).getTime();
+
+		return Moviemeta.findAll({
+			include: [{ 
+				model:Movie, 
+				as: 'movie',
+				attributes: ['title', 'casts', 'rating','images']
+			}],
+			where: {
+				updatetime: {
+					$between: [preWeek, nowWeek]
+				}
+			}
+		}).then(function(data) {
+			var rows = {add: [], update: []};
+			var cacheMid = {add:[], update: []};
+
+			data.forEach(function(item) {
+				item.movie.images = JSON.parse(item.movie.images);
+				item.metavalue = JSON.parse(item.metavalue);
+				// 本周新添加
+				if (item.addtime<=nowWeek && item.addtime>=preWeek) {
+					if (cacheMid.add.indexOf(item.mid) > -1) {
+						var index = cacheMid.add.indexOf(item.mid);
+						rows.add[index].data.push({
+							mid: item.mid,
+							mv: item.movie,
+							data: [{
+								metakey: item.metakey,
+								metavalue: item.metavalue,
+								id: item.id
+							}]
+						});
+					} else {
+						rows.add.push({
+							mid: item.mid,
+							mv: item.movie,
+							data: [{
+								metakey: item.metakey,
+								metavalue: item.metavalue,
+								id: item.id
+							}]
+						});
+						cacheMid.add.push(item.mid);
+					}
+				} else {
+					if (cacheMid.update.indexOf(item.mid) > -1) {
+						var index = cacheMid.update.indexOf(item.mid);
+						rows.update[index].data.push({
+							mid: item.mid,
+							mv: item.movie,
+							data: [{
+								metakey: item.metakey,
+								metavalue: item.metavalue,
+								id: item.id
+							}]
+						});
+					} else {
+						rows.update.push({
+							mid: item.mid,
+							mv: item.movie,
+							data: [{
+								metakey: item.metakey,
+								metavalue: item.metavalue,
+								id: item.id
+							}]
+						});
+						cacheMid.update.push(item.mid);
+					}
 				}
 			});
 

@@ -106,7 +106,7 @@ module.exports = function(data, callback) {
 				return saveData(item);
 			})).then(function() {
 				logger('movie').info(JSON.stringify(res), 0);
-				email.sendMovies(res);
+				email.sendMovies('info',res);
 				callback && callback();
 			}).catch(function(err) {
 				console.error(err.stack || err);
