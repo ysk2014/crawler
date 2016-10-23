@@ -68,9 +68,11 @@ var dy1234 = function(info) {
 				$movielist.each(function() {
 					var obj = {};
 					obj.title = '电影家园',
-					obj.href = $(this).find('a').attr('href');
 
-					arr.push(obj);
+					if ($(this).find('.play-img').attr('title')==info.title && $(this).find('.pLeftTop info').html() == info.year) {
+						obj.href = $(this).find('a').attr('href');
+						arr.push(obj);
+					}
 				});
 
 				if (arr.length>0) {
