@@ -28,7 +28,6 @@ var getSingle = function(info) {
 		});
 
 		delete info.clawler;
-		
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
@@ -45,7 +44,9 @@ var saveData = function(movieInfo) {
 	var results = movieInfo.results ? movieInfo.results : {};
 
 	movieInfo.data.forEach(function(val) {
-		results[val.from] = val.sources.length;
+		if (val.from && val.sources) {
+			results[val.from] = val.sources.length;
+		}
 	});
 
 	return Promise.all(movieInfo.data.map(function(item, i) {
