@@ -9,8 +9,8 @@ var path = require('path');
 */
 var getDownload = function(info) {
 	return Promise.all(info.crawler.map(function(item) {
-		var item = require(path.join(__dirname, 'api/'+item.code));
-		return item(info);
+		var api = require(path.join(__dirname, 'api/'+item.code));
+		return api(info);
 	}));
 }
 
@@ -27,7 +27,7 @@ var getSingle = function(info) {
 			}
 		});
 
-		delete info.clawler;
+		delete info.crawler;
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;

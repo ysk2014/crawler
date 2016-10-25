@@ -34,7 +34,7 @@ function chinese2Gb2312(data) {
 }
 
 var dytt = function(info) {
-
+	var arr = [];
 	var url = 'http://s.dydytt.net/plus/search.php?keyword=' + chinese2Gb2312(info.title);
 
 	var promise = new Promise(function(resolve, reject) {
@@ -44,14 +44,14 @@ var dytt = function(info) {
 			var results = {
 				error: 2,
 				data: 'id为' + info.mid + '的电影爬电影天堂数据失败，原因：没有数据',
-				form: '电影天堂'
+				from: 'dytt'
 			};
 
 			if (err) {
 				var results = {
 					error: 1,
 					data: 'id为' + info.mid + '的电影爬电影天堂数据失败，原因：' + err.toString(),
-					form: '电影天堂'
+					form: 'dytt'
 				};
 				return resolve(results);
 			}
@@ -59,7 +59,7 @@ var dytt = function(info) {
 			var $ = cheerio.load(res.text, {decodeEntities: false});
 			var $ul = $('.bd3r .co_content8').children('ul');
 			var len = $ul.find('table').length;
-			var arr = [];
+			
 
 			if (len>0) {
 				$ul.find('table').each(function() {
@@ -83,7 +83,7 @@ var dytt = function(info) {
 			if (arr.length>0) {
 				var results = {
 					error: 0,
-					form: 'dytt',
+					from: 'dytt',
 					data: arr
 				};
 			}
