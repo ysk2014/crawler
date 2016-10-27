@@ -9,8 +9,12 @@ var path = require('path');
 */
 var getDownload = function(info) {
 	return Promise.all(info.crawler.map(function(item) {
-		var api = require(path.join(__dirname, 'api/'+item.code));
-		return api(info);
+		try {
+			var api = require(path.join(__dirname, '/api/'+item.code));
+			return api(info);
+		} catch(e) {
+			return e;
+		}
 	}));
 }
 
