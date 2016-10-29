@@ -38,22 +38,13 @@ var btbbt = function(info) {
 						var $a = $td.find('a').eq($td.find('a').length-1);
 						var text = $a.html();
 						var regexp = new RegExp('BT','g');
-
+						
 						if (text.indexOf(info.title)>0 && regexp.test(text)) {
+							text = text.replace('<span class="red">'+info.title+'</span>','');
+							var _title = text.match(/(\d+\.\d+G|\d+[Pp])/g);
 							var obj = {};
 							obj.href = 'http://www.btbbt.cc/' + $a.attr('href');
-							var title = '';
-							text.split(/[\[\]]/g).forEach(function(item) {
-								if (item.indexOf('G') > 0) {
-									title += item;
-								} else if (item.indexOf('P')>0) {
-									title += '/'+item;
-								} else {
-									return false;
-								}
-							});
-
-							obj.title = title;
+							obj.title = _title.join('/');
 							arr.push(obj);
 						}
 					}
