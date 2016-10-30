@@ -49,6 +49,17 @@ module.exports = {
 		}).catch(function(err) {
 			console.error(err);
 		});
+	},
+	getAllBySource: function() {
+		return Schedule.findAll({
+			where: {
+				close: 0,
+				type: 'movie',
+				code: {
+					$ne: 'email'
+				}
+			}
+		});
 	}
 };
 
