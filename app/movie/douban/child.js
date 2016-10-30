@@ -60,16 +60,35 @@ var getMovieBaseInfo = function(id) {
 	return promise;
 }
 
-module.exports = function(ids, callback) {
-	mapLimit(ids, 4, function(id) {
-		return getMovieBaseInfo(id);
-	}, function(errs, results) {
-		if (errs.length > 0) {
-			logger('movie').error(JSON.stringify(errs), 1);
-		}
-
-		if (results.length > 0) {
-			logger('movie').info(JSON.stringify(results), 1);
-		}
+function updateMovie(id) {
+	return api.getMovieBaseInfo(id).then(function(data) {
+		var data = filterData(data);
+		// 存储到movie数据表
+		return movieModel.updateRating(data).then(function(result) {
+			return {title: data.title, id: data.id, year: data.year, rating:data.rating};
+		});
 	});
+}
+
+module.exports = {
+	delAll: function(ids, callback) {
+		mapLimit(ids, 4, function(id) {
+			return getMovieBaseInfo(id);
+		}, function(errs, results) {
+			if (errs.length > 0) {
+				logger('movie').error(JSON.stringify(errs), 1);
+			}
+
+			if (results.length > 0) {
+				logger('movie').info(JSON.stringify(results), 1);
+			}
+		});
+	},
+	
+	updateInfoBySingle: function(id) {
+		return updateMovie(id).then(function(result) {
+			logger('movie').info(JSON.stringify(result), 1);
+			return result.rating;
+		})
+	}
 }

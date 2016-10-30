@@ -13,6 +13,7 @@ var getDownload = function(info) {
 			var api = require(path.join(__dirname, '/api/'+item.code));
 			return api(info);
 		} catch(e) {
+			console.log(e.stack || e);
 			return e;
 		}
 	}));
@@ -52,7 +53,6 @@ var saveData = function(movieInfo) {
 			results[val.from] = val.sources.length;
 		}
 	});
-
 	return Promise.all(movieInfo.data.map(function(item, i) {
 
 		return new Promise(function(resolve, reject) {
@@ -79,50 +79,69 @@ var saveData = function(movieInfo) {
 		return taskModel.update({
 			mid: movieInfo.mid, 
 			results: JSON.stringify(results)
+		}).then(function() {
+			return results;
 		});
 	});
 };
 
-module.exports = function(data, callback) {
-	mapLimit(data, 2, function(info) {
-		return getSingle(info);
-	}, function(errs, results) {
-		var email = require(path.join(ROOT, 'email'));
+module.exports = {
+	delAll: function(data, callback) {
+		mapLimit(data, 2, function(info) {
+			return getSingle(info);
+		}, function(errs, results) {
+			var email = require(path.join(ROOT, 'email'));
 
-		errs = errs || [];
+			errs = errs || [];
 
-		var res = [];
-		results.forEach(function(result) {
-			if (result.error.length>0) {
-				errs.push(result);
-			}
-			if (result.data.length>0) {
-				res.push(result);
-			}
-		});
-
-		if (errs.length > 0) {
-			logger('movie').error(JSON.stringify(errs), 0);
-			email.sendErr(errs);
-		}
-
-		if (res.length > 0) {
-			Promise.all(res.map(function(item) {
-				return saveData(item);
-			})).then(function() {
-				logger('movie').info(JSON.stringify(res), 0);
-				// email.sendMovies('info',res);
-				callback && callback();
-			}).catch(function(err) {
-				console.error(err.stack || err);
-				email.sendErr(err);
-				callback && callback();
+			var res = [];
+			results.forEach(function(result) {
+				if (result.error.length>0) {
+					errs.push(result);
+				}
+				if (result.data.length>0) {
+					res.push(result);
+				}
 			});
-		} else {
-			callback && callback();
-		}
-		
-	});
+
+			if (errs.length > 0) {
+				logger('movie').error(JSON.stringify(errs), 0);
+				email.sendErr(errs);
+			}
+
+			if (res.length > 0) {
+				Promise.all(res.map(function(item) {
+					return saveData(item);
+				})).then(function() {
+					logger('movie').info(JSON.stringify(res), 0);
+					callback && callback();
+				}).catch(function(err) {
+					console.error(err.stack || err);
+					email.sendErr(err);
+					callback && callback();
+				});
+			} else {
+				callback && callback();
+			}
+			
+		});
+	},
+
+	delSingle: function(task) {
+		return new Promise(function(resolve, reject) {
+			getSingle(task).then(function(info) {
+				if (info.data.length>0) {
+					logger('movie').info(JSON.stringify(info.data), 0).then(function() {
+						saveData(info).then(function(results) {
+							resolve(results);
+						});
+					});
+				} else {
+					reject({msg:'没有数据'});
+				}
+			});
+		});
+	}
 }
 
 

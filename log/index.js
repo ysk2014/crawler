@@ -9,9 +9,7 @@ var common = function(logModel, content, subtype, type) {
 		subtype: subtype,
 		addtime: Math.floor((new Date()).getTime()/1000)
 	};
-	logModel.add(opts).catch(function(err) {
-		console.error(err.stack || err);
-	});
+	return logModel.add(opts);
 }
 
 module.exports = function(type) {
@@ -23,10 +21,10 @@ module.exports = function(type) {
 	}
 	return {
 		info: function(content, subtype) {
-			common(logModel, content, subtype, 1);
+			return common(logModel, content, subtype, 1);
 		},
 		error: function(content, subtype) {
-			common(logModel, content, subtype, 0);
+			return common(logModel, content, subtype, 0);
 		}
 	}
 }

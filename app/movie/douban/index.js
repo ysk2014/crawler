@@ -20,7 +20,7 @@ douban.getInTheaters = function() {
 		}).then(function(data) {
 			if (data.length>0) {
 				var child = require(path.join(__dirname, 'child'));
-				child(data);
+				child.delAll(data);
 			}
 
 			resolve('豆瓣爬虫完成');
@@ -49,6 +49,11 @@ douban.searchMovie = function(keyword) {
 	});
 
 	return promise;
+}
+
+douban.updateInfoBySingle = function(mid) {
+	var child = require(path.join(__dirname, 'child'));
+	return child.updateInfoBySingle(mid);
 }
 
 module.exports = douban;

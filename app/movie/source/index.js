@@ -40,7 +40,7 @@ source.getDownloads = function(types) {
 			console.log(data.length);
 
 			var child = require(path.join(__dirname, 'child'));
-			child(data, function() {
+			child.delAll(data, function() {
 				console.log('资源爬虫结束');
 			});
 		} else {
@@ -55,13 +55,20 @@ source.getDownloads = function(types) {
 	});
 };
 
-
+//搜索某个资源
 source.searchMovie = function(info) {
 	return requireDir(path.join(__dirname,'api/')).then(function(files) {
 		return Promise.all(files.map(function(file) {
 			var item = require(path.join(__dirname, 'api/'+file));
 			return item(info);
 		}));
+	});
+}
+//重新爬去某个资源
+source.recrawling = function(task) {
+	return filter.getTaskBySingle(task).then(function(data) {
+		var child = require(path.join(__dirname, 'child'));
+		return child.delSingle(data);
 	});
 }
 

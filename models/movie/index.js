@@ -85,6 +85,19 @@ module.exports = {
 			});
 		});
 	},
+	updateRating: function(params) {
+		return Movie.findOne({
+			where: {
+				id: params.id
+			}
+		}).then(function(movie) {
+			return movie.update({
+				rating: params.rating
+			},{
+				fields: ['rating']
+			});
+		});
+	},
 	checkIds: function(ids) {
 		return Movie.findAll({
 			attributes: ['id'],

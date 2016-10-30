@@ -25,7 +25,7 @@ var Task = db.define('task', {
 		defaultValue: 0
 	},
 	results: {
-		type: Sequelize.STRING(50)
+		type: Sequelize.TEXT
 	},
 	addtime: {
 		type: Sequelize.STRING(20)

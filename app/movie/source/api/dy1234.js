@@ -63,11 +63,10 @@ var dy1234 = function(info) {
 				var $ = cheerio.load(res.text, {decodeEntities: false});
 				var $movielist = $('#main').find('.movielist .img-list li');
 
-				var arr = [];
 
 				$movielist.each(function() {
 					var obj = {};
-					obj.title = '电影家园',
+					obj.title = '电影家园';
 
 					if ($(this).find('.play-img').attr('title')==info.title && $(this).find('.pLeftTop info').html() == info.year) {
 						obj.href = $(this).find('a').attr('href');
