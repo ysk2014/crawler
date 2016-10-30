@@ -87,7 +87,6 @@ module.exports = {
 	
 	updateInfoBySingle: function(id) {
 		return updateMovie(id).then(function(result) {
-			logger('movie').info(JSON.stringify(result), 1);
 			return result.rating;
 		})
 	}

@@ -131,10 +131,8 @@ module.exports = {
 		return new Promise(function(resolve, reject) {
 			getSingle(task).then(function(info) {
 				if (info.data.length>0) {
-					logger('movie').info(JSON.stringify(info.data), 0).then(function() {
-						saveData(info).then(function(results) {
-							resolve(results);
-						});
+					saveData(info).then(function(results) {
+						resolve(results);
 					});
 				} else {
 					reject({msg:'没有数据'});
