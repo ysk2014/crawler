@@ -42,7 +42,7 @@ var btbbt = function(info) {
 						if (text.indexOf(info.title)>0 && regexp.test(text)) {
 							text = text.replace('<span class="red">'+info.title+'</span>','');
 							var _title = text.match(/(\d+\.\d+G|\d+[Pp])/g);
-							if (_title[0] != '') {
+							if (_.title && _title.length>0 && _title[0] != '') {
 								var obj = {};
 								obj.href = 'http://www.btbbt.cc/' + $a.attr('href');
 								obj.title = _title.join('/');
