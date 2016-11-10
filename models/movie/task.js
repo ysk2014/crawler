@@ -44,9 +44,9 @@ module.exports = {
 	getAll: function() {
 		return Task.findAll();
 	},
-	getAllByResults: function(types,expir) {
+	getAllByResults: function(types,start,end) {
 
-		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.addtime >= "+expir+" and task.results is NULL";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.addtime between "+start+" and "+end+" and task.results is NULL";
 
 		types.forEach(function(item, i) {
 			if (item.times>0) {

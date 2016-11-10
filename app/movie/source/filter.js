@@ -6,9 +6,11 @@ var filter = {};
 function queryTaskAll(types) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(ROOT, 'models/movie/task'));
-		var time = Math.floor((new Date()).getTime()/1000 - 30*24*60*60);
+		var now = Math.floor((new Date()).getTime()/1000);
+		var start = now- 7*24*60*60;
+		var end = start - 30*24*60*60;
 
-		taskModel.getAllByResults(types, time).then(function(res) {
+		taskModel.getAllByResults(types, start, end).then(function(res) {
 			resolve(res);
 		}).catch(function(err) {
 			reject(err);
