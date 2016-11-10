@@ -36,7 +36,6 @@ var getSingle = function(info) {
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
-		console.log(movieInfo);
 		return movieInfo;
 	});
 };
