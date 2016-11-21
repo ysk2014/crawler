@@ -1,6 +1,6 @@
 
 
-var btbbt = require('../source/api/btbbt');
+var btbbt = require('../app/movie/source/api/btbbt');
 
 btbbt({
 	title: '美人鱼',
