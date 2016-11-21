@@ -22,9 +22,10 @@ var dysfz = function(info) {
 				if (err) {
 					var results = {
 						error: 1,
-						data: 'id为' + info.mid + '的电影爬电影首发站数据失败，原因：' + err,
+						data: 'id为' + info.mid + '的电影爬电影首发站数据失败，原因：' + (err.stack || err),
 						from: 'rarbt'
 					};
+					console.error('爬取失败，原因：'+(err.stack || err));
 					return resolve(results);
 				}
 
@@ -64,6 +65,8 @@ var dysfz = function(info) {
 						data: arr
 					};
 				}
+
+				console.log('结果：'+results.data);
 				return resolve(results);
 			});
 	});

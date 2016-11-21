@@ -30,9 +30,10 @@ var bttt = function(info) {
 				if (err) {
 					var results = {
 						error: 1,
-						data: 'id为' + info.mid + '的电影爬bt天堂数据失败，原因：' + err,
+						data: 'id为' + info.mid + '的电影爬bt天堂数据失败，原因：' + (err.stack || err),
 						from: 'bttt'
 					};
+					console.error('爬取失败，原因：'+(err.stack || err));
 					return resolve(results);
 				}
 
@@ -62,6 +63,8 @@ var bttt = function(info) {
 						data: arr
 					};
 				}
+
+				console.log('结果：'+results.data);
 				return resolve(results);
 			});
 	});

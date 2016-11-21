@@ -15,7 +15,7 @@ var getDownload = function(info) {
 			var api = require(path.join(__dirname, '/api/'+item.code));
 			var result = api(info);
 
-			console.log('电影《'+info.title+'》爬取'+item.title+'结束，爬到的结果为'+JSON.stringify(result));
+			console.log('电影《'+info.title+'》爬取'+item.title+'结束');
 
 			return result;
 		} catch(e) {
