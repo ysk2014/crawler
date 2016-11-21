@@ -10,10 +10,17 @@ var path = require('path');
 var getDownload = function(info) {
 	return Promise.all(info.crawler.map(function(item) {
 		try {
+			console.log('电影《'+info.title+'》爬取'+item.title+'开始');
+
 			var api = require(path.join(__dirname, '/api/'+item.code));
-			return api(info);
+			var result = api(info);
+
+			console.log('电影《'+info.title+'》爬取'+item.title+'结束，爬到的结果为'+JSON.stringify(result));
+
+			return result;
 		} catch(e) {
-			console.log(e.stack || e);
+			console.error('电影《'+info.title+'》爬取'+item.title+'失败，原因：');
+			console.error(e.stack || e);
 			return e;
 		}
 	}));
@@ -21,6 +28,7 @@ var getDownload = function(info) {
 
 
 var getSingle = function(info) {
+	console.log('电影《'+info.title+'》爬虫开始');
 	return getDownload(info).then(function(results) {
 		var errors = [], data = [];
 		// 获取下载资源数据，过滤错误的信息
@@ -36,6 +44,9 @@ var getSingle = function(info) {
 		var movieInfo = _.clone(info, true);
 		movieInfo.data = data;
 		movieInfo.error = errors;
+
+		console.log('电影《'+info.title+'》爬虫结束');
+
 		return movieInfo;
 	});
 };

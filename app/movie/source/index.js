@@ -37,7 +37,7 @@ source.getDownloads = function(types) {
 	return filter.getTaskData(types).then(function(data) {
 		if (data.length>0) {
 			
-			console.log(data.length);
+			console.log('本次要爬取电影的个数'+data.length);
 
 			var child = require(path.join(__dirname, 'child'));
 			child.delAll(data, function() {
