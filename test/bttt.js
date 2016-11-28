@@ -1,6 +1,6 @@
 
 
-var btbbt = require('../app/movie/source/api/btbbt');
+var btbbt = require('../app/movie/source/api/dysfz');
 
 btbbt({
 	title: '美人鱼',
