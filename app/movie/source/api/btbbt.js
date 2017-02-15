@@ -45,7 +45,7 @@ var btbbt = function(info) {
 							var _title = text.match(/(\d+\.\d+G|\d+[Pp])/g);
 							if (_title && _title.length>0 && _title[0] != '') {
 								var obj = {};
-								obj.href = 'http://www.btbbt.cc/' + $a.attr('href');
+								obj.href = 'http://www.btbtt.cc/' + $a.attr('href');
 								obj.title = _title.join('/');
 								arr.push(obj);
 							}
