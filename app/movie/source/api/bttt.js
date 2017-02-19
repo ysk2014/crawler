@@ -64,7 +64,6 @@ var bttt = function(info) {
 					};
 				}
 
-				console.log('结果：'+results.data);
 				return resolve(results);
 			});
 	});

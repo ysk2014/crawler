@@ -1,9 +1,9 @@
 
 
-var btbbt = require('../app/movie/source/api/dysfz');
+var btbtt = require('../app/movie/source/api/btbtt');
 
-btbbt({
-	title: '美人鱼',
+btbtt({
+	title: '三人行',
 	mid: 213213,
 	year: 2016
 }).then(function(data) {
