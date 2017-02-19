@@ -64,8 +64,9 @@ function getDownloadUrl(href) {
 }
 
 
-module.exports = function(data) {
-	return Promise.all(data.map(function(item,i) {
+module.exports = function(data, callback) {
+
+	mapLimit(data, 2, function(item) {
 		return getDownloadPage(item.href).then(function(res) {
 			if (res.err) {
 				return res;
@@ -75,10 +76,12 @@ module.exports = function(data) {
 			
 		}).then(function(result) {
 			if (!result.err) {
-				data[i].href = result.data;
+				item.href = result.data;
 			}
-			return data;
+			return item;
 		});
-	}));
-	
+	}, function(err, results) {
+		callback(results);
+	});
+
 }

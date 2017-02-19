@@ -54,21 +54,14 @@ var btbtt = function(info) {
 					}
 				});
 				if (arr.length>0) {
-					getDownload(arr).then(function(data) {
+					getDownload(arr, function(data) {
 						var results = {
 							error: 0,
 							from: 'btbtt',
 							data: data
 						};
 						resolve(results);
-					}).catch((err) => {
-						var results = {
-							error: 1,
-							from: 'btbtt',
-							data: 'id为' + info.mid + '的电影爬bt之家数据失败，原因：' + (err.stack || err),
-						};
-						resolve(results);
-					})
+					});
 				} else {
 					return resolve(results);
 				}
