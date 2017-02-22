@@ -53,6 +53,7 @@ var btbtt = function(info) {
 						}
 					}
 				});
+				console.log(getDownload);
 				if (arr.length>0) {
 					getDownload(arr, function(data) {
 						var results = {
