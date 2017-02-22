@@ -60,6 +60,7 @@ var btbtt = function(info) {
 							from: 'btbtt',
 							data: data
 						};
+						console.log(data);
 						resolve(results);
 					});
 				} else {
