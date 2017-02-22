@@ -5,6 +5,7 @@ var superagent = require('superagent');
 
 function getDownloadPage(href) {
 	return new Promise((resolve, reject) => {
+		console.log(href);
 		superagent.get(href).end((err, res) => {
 			if (err) {
 				console.error('获取电影详情页面'+href+'失败'+err.stack);
