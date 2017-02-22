@@ -1,4 +1,3 @@
-
 var Sequelize = require('sequelize');
 
 var path = require('path');
@@ -116,4 +115,3 @@ module.exports = {
 		});
 	}
 };
-

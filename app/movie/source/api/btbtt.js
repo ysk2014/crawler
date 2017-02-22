@@ -1,13 +1,14 @@
 
 var cheerio = require('cheerio');
 var superagent = require('superagent');
+var getDownload = require('../download/btbtt');
 
 
-var btbbt = function(info) {
+var btbtt = function(info) {
 
 	var arr = [];
 
-	var url = 'http://www.btbtt.la/search-index-keyword-' + encodeURIComponent(info.title) + '.htm';
+	var url = 'http://www.btbtt.co/search-index-keyword-' + encodeURIComponent(info.title) + '.htm';
 
 	var promise = new Promise((resolve, reject) => {
 		superagent.get(url)
@@ -16,14 +17,14 @@ var btbbt = function(info) {
 				var results = {
 					error: 2,
 					data: 'id为' + info.mid + '的电影爬bt之家数据失败，原因：没有数据',
-					from: 'btbbt'
+					from: 'btbtt'
 				};
 
 				if (err) {
 					var results = {
 						error: 1,
 						data: 'id为' + info.mid + '的电影爬bt之家数据失败，原因：' + (err.stack || err),
-						from: 'btbbt'
+						from: 'btbtt'
 					};
 					console.error('爬取失败，原因：'+(err.stack || err));
 					return resolve(results);
@@ -45,27 +46,31 @@ var btbbt = function(info) {
 							var _title = text.match(/(\d+\.\d+G|\d+[Pp])/g);
 							if (_title && _title.length>0 && _title[0] != '') {
 								var obj = {};
-								obj.href = 'http://www.btbbt.cc/' + $a.attr('href');
+								obj.href = 'http://www.btbtt.co/' + $a.attr('href');
 								obj.title = _title.join('/');
 								arr.push(obj);
 							}
 						}
 					}
 				});
-
 				if (arr.length>0) {
-					var results = {
-						error: 0,
-						from: 'btbbt',
-						data: arr
-					};
+					getDownload(arr, function(data) {
+						var results = {
+							error: 0,
+							from: 'btbtt',
+							data: data
+						};
+						resolve(results);
+					});
+				} else {
+					return resolve(results);
 				}
 
-				console.log('结果：'+results.data);
-				return resolve(results);
+				
+				
 			});
 	});
 	return promise;
 }
 
-module.exports = btbbt;
+module.exports = btbtt;

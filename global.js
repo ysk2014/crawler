@@ -19,7 +19,7 @@ global.logger = require(path.join(__dirname, 'log'));
 
 global.mapLimit = function(coll, limit, iteratee, callback) {
 	var _arr = [];
-	var current = limit;
+	var current = limit-1;
 	var results = [];
 	var errors = [];
 
@@ -33,7 +33,7 @@ global.mapLimit = function(coll, limit, iteratee, callback) {
 		}
 	}
 
-	var fun = function(id) {
+	var fun = function(id, key) {
 		if (_arr.length < limit) {
 			var promise = iteratee(id);
 
@@ -44,19 +44,20 @@ global.mapLimit = function(coll, limit, iteratee, callback) {
 			promise.then(function(data) {
 
 				results.push(data);
-				_arr.splice(len-1, 1);
+				_arr.splice(0, 1);
 
 				delEnd();
 			}).catch(function(err) {
 				errors.push(err);
-				_arr.splice(len-1, 1);
+				_arr.splice(0, 1);
 
 				delEnd();
 			});
 		}
 	}
 
-	for (var i = 0; i < limit; i++) {
-		fun(coll[i]);
+	var _len = limit>coll.length ? limit : coll.length
+	for (let i = 0; i < _len; i++) {
+		fun(coll[i],i);
 	}
 }

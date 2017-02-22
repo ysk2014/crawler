@@ -55,7 +55,6 @@ var rarbt = function(info) {
 						data: arr
 					};
 				}
-				console.log('结果：'+results.data);
 				return resolve(results);
 			});
 	});
