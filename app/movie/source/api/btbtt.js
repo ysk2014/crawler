@@ -53,7 +53,6 @@ var btbtt = function(info) {
 						}
 					}
 				});
-				console.log(getDownload);
 				if (arr.length>0) {
 					getDownload(arr, function(data) {
 						var results = {
@@ -61,7 +60,7 @@ var btbtt = function(info) {
 							from: 'btbtt',
 							data: data
 						};
-						console.log(data);
+						console.log("结果："+data);
 						resolve(results);
 					});
 				} else {
