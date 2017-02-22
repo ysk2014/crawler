@@ -1,5 +1,5 @@
-
-
+var path = require('path');
+require(path.join(__dirname, 'global'));
 var btbtt = require('../app/movie/source/api/btbtt');
 
 btbtt({
