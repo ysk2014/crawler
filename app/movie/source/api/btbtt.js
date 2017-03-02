@@ -56,7 +56,7 @@ var btbtt = function(info) {
 					var results = {
 						error: 0,
 						from: 'btbtt',
-						data: data
+						data: arr
 					};
 					
 				}
