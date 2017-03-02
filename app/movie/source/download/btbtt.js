@@ -69,6 +69,7 @@ function getDownloadUrl(href) {
 module.exports = function(data, callback) {
 
 	mapLimit(data, 2, function(item) {
+		console.log(item)
 		return getDownloadPage(item.href).then(function(res) {
 			console.log('获取详情页面结束');
 			if (res.err) {
