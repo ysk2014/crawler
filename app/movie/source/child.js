@@ -14,7 +14,8 @@ var getDownload = function(info) {
 
 			var api = require(path.join(__dirname, '/api/'+item.code));
 			var getSource = require(path.join(__dirname, '/download/'+item.code));
-			var result = api(info).then(function(res) {
+			return result = api(info).then(function(res) {
+				console.log('电影《'+info.title+'》爬取'+item.title+'结束');
 				if (res.error == 0) {
 					return getSource(res.data).then(function(results) {
 						console.log("结果："+data);
@@ -25,10 +26,6 @@ var getDownload = function(info) {
 					return res;
 				}
 			});
-
-			console.log('电影《'+info.title+'》爬取'+item.title+'结束');
-
-			return result;
 		} catch(e) {
 			console.error('电影《'+info.title+'》爬取'+item.title+'失败，原因：');
 			console.error(e.stack || e);

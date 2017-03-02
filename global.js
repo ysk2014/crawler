@@ -19,7 +19,7 @@ global.logger = require(path.join(__dirname, 'log'));
 
 global.mapLimit = function(coll, limit, iteratee, callback) {
 	var _arr = [];
-	var current = limit>coll.length ? coll.length-1 : limit-1;
+	var current = limit>coll.length ? coll.length : limit;
 	var results = [];
 	var errors = [];
 
