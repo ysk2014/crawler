@@ -22,7 +22,8 @@ var getDownload = function(info) {
 						res.data = results;
 						return res;
 					}).catch(function(e) {
-						console.log(e)
+						console.log(e);
+						return res;
 					});
 				} else {
 					return res;

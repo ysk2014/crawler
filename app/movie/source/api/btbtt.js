@@ -1,8 +1,6 @@
 
 var cheerio = require('cheerio');
 var superagent = require('superagent');
-var getDownload = require('../download/btbtt');
-
 
 var btbtt = function(info) {
 
