@@ -66,25 +66,26 @@ function getDownloadUrl(href) {
 }
 
 
-module.exports = function(data, callback) {
-	mapLimit(data, 2, function(item) {
-		return getDownloadPage(item.href).then(function(res) {
-			console.log('获取详情页面结束');
-			if (res.err) {
-				return res;
-			} else {
-				return getDownloadUrl(res.data);
-			}
-			
-		}).then(function(result) {
-			console.log('获取下载地址结束')
-			if (!result.err) {
-				item.href = result.data;
-			}
-			return item;
+module.exports = function(data) {
+	return new Promise(function(resolve, reject) {
+		mapLimit(data, 2, function(item) {
+			return getDownloadPage(item.href).then(function(res) {
+				console.log('获取详情页面结束');
+				if (res.err) {
+					return res;
+				} else {
+					return getDownloadUrl(res.data);
+				}
+				
+			}).then(function(result) {
+				console.log('获取下载地址结束')
+				if (!result.err) {
+					item.href = result.data;
+				}
+				return item;
+			});
+		}, function(err, results) {
+			return resole(results);
 		});
-	}, function(err, results) {
-		callback(results);
 	});
-
 }

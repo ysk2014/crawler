@@ -13,7 +13,18 @@ var getDownload = function(info) {
 			console.log('电影《'+info.title+'》爬取'+item.title+'开始');
 
 			var api = require(path.join(__dirname, '/api/'+item.code));
-			var result = api(info);
+			var getSource = require(path.join(__dirname, '/download/'+item.code));
+			var result = api(info).then(function(res) {
+				if (res.error == 0) {
+					return getSource(res.data).then(function(results) {
+						console.log("结果："+data);
+						res.data = results;
+						return res;
+					});
+				} else {
+					return res;
+				}
+			});
 
 			console.log('电影《'+info.title+'》爬取'+item.title+'结束');
 
