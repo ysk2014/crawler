@@ -66,8 +66,6 @@ var btbtt = function(info) {
 				} else {
 					return resolve(results);
 				}
-
-				
 				
 			});
 	});
