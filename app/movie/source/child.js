@@ -18,9 +18,11 @@ var getDownload = function(info) {
 				console.log('电影《'+info.title+'》爬取'+item.title+'结束');
 				if (res.error == 0) {
 					return getSource(res.data).then(function(results) {
-						console.log("结果："+data);
+						console.log("结果："+results);
 						res.data = results;
 						return res;
+					}).catch(function(e) {
+						console.log(e)
 					});
 				} else {
 					return res;
