@@ -67,7 +67,7 @@ function getDownloadUrl(href) {
 
 
 module.exports = function(data, callback) {
-
+	console.log(data);
 	mapLimit(data, 2, function(item) {
 		console.log(item)
 		return getDownloadPage(item.href).then(function(res) {
