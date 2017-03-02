@@ -1,7 +1,6 @@
 
 var cheerio = require('cheerio');
 var superagent = require('superagent');
-var getDownload = require('../download/btbtt');
 
 
 var btbtt = function(info) {
@@ -54,19 +53,14 @@ var btbtt = function(info) {
 					}
 				});
 				if (arr.length>0) {
-					getDownload(arr, function(data) {
-						var results = {
-							error: 0,
-							from: 'btbtt',
-							data: data
-						};
-						console.log("结果："+data);
-						resolve(results);
-					});
-				} else {
-					return resolve(results);
+					var results = {
+						error: 0,
+						from: 'btbtt',
+						data: data
+					};
+					
 				}
-				
+				return resolve(results);
 			});
 	});
 	return promise;
