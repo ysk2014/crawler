@@ -56,8 +56,8 @@ global.mapLimit = function(coll, limit, iteratee, callback) {
 		}
 	}
 
-	var _len = limit>coll.length ? limit : coll.length
-	for (let i = 0; i < _len; i++) {
+	var _len = limit>coll.length ? coll.length : limit
+	for (var i = 0; i < _len; i++) {
 		fun(coll[i]);
 	}
 }
