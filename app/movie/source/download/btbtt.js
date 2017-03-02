@@ -56,7 +56,7 @@ function getDownloadUrl(href) {
 					data: url
 				});
 			} else {
-				return reject({
+				return resolve({
 					err: 1,
 					data: '没有找到下载链接'
 				});				
@@ -67,25 +67,43 @@ function getDownloadUrl(href) {
 
 
 module.exports = function(data) {
-	return new Promise(function(resolve, reject) {
-		mapLimit(data, 2, function(item) {
-			return getDownloadPage(item.href).then(function(res) {
-				console.log('获取详情页面结束');
-				if (res.err) {
-					return res;
-				} else {
-					return getDownloadUrl(res.data);
-				}
+	// return new Promise(function(resolve, reject) {
+	// 	mapLimit(data, 2, function(item) {
+	// 		return getDownloadPage(item.href).then(function(res) {
+	// 			console.log('获取详情页面结束');
+	// 			if (res.err) {
+	// 				return res;
+	// 			} else {
+	// 				return getDownloadUrl(res.data);
+	// 			}
 				
-			}).then(function(result) {
-				console.log('获取下载地址结束')
-				if (!result.err) {
-					item.href = result.data;
-				}
-				return item;
-			});
-		}, function(err, results) {
-			return resole(results);
+	// 		}).then(function(result) {
+	// 			console.log('获取下载地址结束')
+	// 			if (!result.err) {
+	// 				item.href = result.data;
+	// 			}
+	// 			return item;
+	// 		});
+	// 	}, function(err, results) {
+	// 		return resole(results);
+	// 	});
+	// });
+
+	return Promise.all(data.map(function(item) {
+		return getDownloadPage(item.href).then(function(res) {
+			console.log('获取详情页面结束');
+			if (res.err) {
+				return res;
+			} else {
+				return getDownloadUrl(res.data);
+			}
+			
+		}).then(function(result) {
+			console.log('获取下载地址结束')
+			if (!result.err) {
+				item.href = result.data;
+			}
+			return item;
 		});
-	});
+	}))
 }
