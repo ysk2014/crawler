@@ -7,7 +7,7 @@ function queryTaskAll(types) {
 	var promise = new Promise(function(resolve, reject) {
 		var taskModel = require(path.join(ROOT, 'models/movie/task'));
 		var now = Math.floor((new Date()).getTime()/1000);
-		var end = now- 7*24*60*60 - 45*24*60*60 - 45*24*60*60;
+		var end = now- 7*24*60*60;
 		var start = end - 45*24*60*60;
 
 		taskModel.getAllByResults(types, start, end).then(function(res) {
