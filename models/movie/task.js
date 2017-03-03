@@ -45,7 +45,7 @@ module.exports = {
 	},
 	getAllByResults: function(types,start,end) {
 
-		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where task.results is NULL";
+		var sql = "select task.*, movie.images, movie.rating, movie.casts from task join movie on task.mid=movie.id where (task.results is NULL";
 
 		types.forEach(function(item, i) {
 			if (item.times>0) {
@@ -63,7 +63,7 @@ module.exports = {
 			}
 		});
 
-		sql += " and task.addtime between "+start+" and "+end;
+		sql += ") and task.addtime between "+start+" and "+end;
 		
 		return db.query(sql).then(function(data) {
 			var results = [];
