@@ -54,7 +54,6 @@ var btbtt = function(info) {
 							var text = $a.attr('title').replace(/\[/g,']').split(']');
 							var textArr = _.compact(text);
 
-							console.log(textArr);
 							if (textArr[1] == '<span class=red>'+info.title+'</span>') {
 								var obj = {};
 								obj.href = 'http://www.btbtt.co/' + $a.attr('href');
