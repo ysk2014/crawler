@@ -34,18 +34,31 @@ var btbtt = function(info) {
 				$items.each(function() {
 					var $td = $(this).find('td.subject');
 
-					if ($td.length>0 && ($td.find('a').eq(1).html() == '【高清电影】' || $td.find('a').eq(1).html() == '【电影】') && $td.find('a').eq(2).html() == '['+info.year+']'){
-						var $a = $td.find('a').eq($td.find('a').length-1);
-						var text = $a.html();
-						var regexp = new RegExp('BT','g');
-						
-						if (text.indexOf(info.title)>0 && regexp.test(text)) {
-							text = text.replace('<span class="red">'+info.title+'</span>','');
-							var _title = text.match(/(\d+\.\d+G|\d+[Pp])/g);
-							if (_title && _title.length>0 && _title[0] != '') {
+					if ($td.length>0 && $td.find('a').eq(2).html() == '['+info.year+']'){
+						var aLen = $td.find('a').length;
+
+						if ($td.find('a').eq(1).html() == '【高清电影】') {
+							var $a = $td.find('a').eq(aLen-1);
+							var _title = $td.find('a').eq(aLen-2).html().replace(/[\[\]]/g,'');
+							var _text = $a.html().match(/(\d+\.\d+G)/g);
+
+							if ($a.html().indexOf(info.title)>0 && _text && _text.length>0 && _text[0]!='') {
 								var obj = {};
 								obj.href = 'http://www.btbtt.co/' + $a.attr('href');
-								obj.title = _title.join('/');
+								obj.title = _title+'/'+_text[0];
+								arr.push(obj);
+							}
+
+						} else if ($td.find('a').eq(1).html() == '【电影】') {
+							var $a = $td.find('a').eq(aLen-1);
+							var text = $a.attr('title').replace(/\[/g,']').split(']');
+							var textArr = _.compact(text);
+
+							console.log(textArr);
+							if (textArr[1] == '<span class=red>'+info.title+'</span>') {
+								var obj = {};
+								obj.href = 'http://www.btbtt.co/' + $a.attr('href');
+								obj.title = textArr[2]+'/'+textArr[3]+'/'+textArr[4];
 								arr.push(obj);
 							}
 						}
