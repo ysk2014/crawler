@@ -51,7 +51,7 @@ var btbtt = function(info) {
 
 						} else if ($td.find('a').eq(1).html() == '【电影】') {
 							var $a = $td.find('a').eq(aLen-1);
-							var text = $a.attr('title').replace(/\[/g,']').split(']');
+							var text = $a.attr('title') && $a.attr('title').replace(/\[/g,']').split(']');
 							var textArr = _.compact(text);
 
 							if (textArr[1] == '<span class=red>'+info.title+'</span>') {
