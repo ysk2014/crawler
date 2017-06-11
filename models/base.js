@@ -18,6 +18,6 @@ module.exports = function(database) {
         dialect: settings.driver,
         host: settings.host,
         maxConcurrentQueries: 120,
-        // logging: true
+        logging: false
     });
 };
