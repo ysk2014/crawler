@@ -18,6 +18,7 @@
     "nodemailer": "^2.4.1",
     "sequelize": "^3.23.4",
     "superagent": "^2.1.0",
-    "superagent-charset": "^1.1.1"
+    "superagent-charset": "^1.1.1",
+    "throat": "^3.1.0"
   }
 }
