@@ -1,7 +1,7 @@
 var path = require('path');
 var cheerio = require('cheerio');
 var superagent = require('superagent');
-var pageinfo = require('./info');
+var PageInfo = require('./info');
 var lastChapterModel = require(path.join(ROOT, 'models/novel/lastChapter'));
 
 class DingDian {
@@ -19,6 +19,7 @@ class DingDian {
 			if (results.length>0) {
 				console.log(novel.title);
 				novel.results = results;
+				var pageinfo = new PageInfo();
 				return pageinfo.start(novel);
 			} else {
 				return console.log('小说：'+novel.title+'没有更新');
@@ -80,7 +81,7 @@ class DingDian {
 	}
 
 	search(novel) {
-		var searchUrl = 'http://www.zhetian.org/search.html?searchtype=novelname&searchkey='+novel.title;
+		var searchUrl = novel.source.url+'/search.html?searchtype=novelname&searchkey='+novel.title;
 		var _self = this;
 		this.novel = novel;
 		this.post(searchUrl).then(function(res) {

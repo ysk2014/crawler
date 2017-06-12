@@ -24,7 +24,7 @@ class Info {
     dealSingle(source, index) {
         var _self = this;
         console.log(source.title);
-        source.cid = source.url.replace(this.novel.url, '').replace('.html','');
+        source.cid = source.url.replace(_self.novel.url, '').replace('.html','');
         return this.post(source).then(function(res) {
             return _self.addChapterData(res.info, source);
         }).then(function(data) {
@@ -82,4 +82,4 @@ class Info {
     }
 }
 
-module.exports = new Info();
+module.exports = Info;
