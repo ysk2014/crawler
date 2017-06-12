@@ -1,7 +1,8 @@
-
+var path = require('path');
 var cheerio = require('cheerio');
 var superagent = require('superagent');
 var pageinfo = require('./info');
+var lastChapterModel = require(path.join(ROOT, 'models/novel/lastChapter'));
 
 class DingDian {
 	constructor() {
@@ -76,6 +77,48 @@ class DingDian {
 			});
 		}
 		return results;
+	}
+
+	search(novel) {
+		var searchUrl = 'http://www.zhetian.org/search.html?searchtype=novelname&searchkey='+novel.title;
+		var _self = this;
+		this.novel = novel;
+		this.post(searchUrl).then(function(res) {
+			return _self.filterSearchData(res);
+		}).then(function(info) {
+			if (info.url) {
+				return _self.updateLastChapter({
+					url: info.url,
+					lastid: 0
+				});
+			}
+			return '';
+		}).catch(function(err) {
+			console.log('《'+novel.title+'》搜索失败，来源：'+novel.source.title+'，失败原因：'+(err.stack||err));
+		});
+	}
+
+	filterSearchData(res) {
+		var _self = this;
+		var $ = cheerio.load(res.text, {decodeEntities: false});
+		var info = {};
+		$('.librarylist').find('li').find('.info').each(function() {
+			var $novelname = $(this).find('.novelname');
+			if ($novelname.html() == _self.novel.title) {
+				info = {
+					title: $novelname.html(),
+					url: $novelname.attr('href')
+				};
+			}
+		});
+		return info;
+	}
+
+	updateLastChapter(params) {
+		return lastChapterModel.update({
+			lastid: params.lastid,
+			url: params.url
+		})
 	}
 }
 

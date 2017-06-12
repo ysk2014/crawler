@@ -5,9 +5,6 @@ var lastChapterModel = require(path.join(ROOT, 'models/novel/lastChapter'));
 
 
 class Source {
-    constructor() {
-
-    }
 
     start(title) {
         novelModel.getOne({
