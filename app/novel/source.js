@@ -11,7 +11,7 @@ class Source {
             title: title
         }).then(function(novel) {
             return lastChapterModel.getAll({
-                sid: novel.source,
+                sid: novel.sid,
                 nid: novel.id
             });
         }).then(function(novelSource) {

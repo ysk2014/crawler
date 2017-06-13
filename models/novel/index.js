@@ -20,7 +20,7 @@ var Novel = db.define('novel', {
 	summary: {
 		type: Sequelize.TEXT
 	},
-	source: {
+	sid: {
 		type: Sequelize.INTEGER(11)
 	},
 	addtime: {
