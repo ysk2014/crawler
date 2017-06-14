@@ -32,7 +32,7 @@ var LastChapter = db.define('last_chapter', {
 });
 
 LastChapter.belongsTo(Source, {foreignKey: 'sid'});
-LastChapter.belongsTo(Chapter, {foreignKey: 'lastid', targetKey: 'cid'});
+LastChapter.belongsTo(Chapter, {foreignKey: 'lastid'});
 
 module.exports = {
 

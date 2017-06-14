@@ -77,7 +77,7 @@ class Info {
         return lastChapterModel.update({
             id: _self.novel.id,
             url: _self.novel.url,
-            lastid: last.cid
+            lastid: last.id
         });
     }
 }
