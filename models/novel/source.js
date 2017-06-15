@@ -6,6 +6,7 @@ var db = require('../base')('novel');
 var Source = db.define('source', {
 	id   : {
 		type: Sequelize.INTEGER(11),
+		autoIncrement : true,
 		primaryKey: true
 	},
 	title: {

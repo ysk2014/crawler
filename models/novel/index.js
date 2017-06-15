@@ -6,6 +6,7 @@ var db = require('../base')('novel');
 var Novel = db.define('novel', {
 	id   : {
 		type: Sequelize.INTEGER(11),
+		autoIncrement : true,
 		primaryKey: true
 	},
 	title: {

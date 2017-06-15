@@ -9,6 +9,7 @@ var Chapter = require('./chapter').table;
 var LastChapter = db.define('last_chapter', {
 	id   : {
 		type: Sequelize.INTEGER(11),
+		autoIncrement : true,
 		primaryKey: true
 	},
 	nid: {
