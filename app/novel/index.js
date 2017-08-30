@@ -1,14 +1,14 @@
 
-var path = require('path');
+let path = require('path');
 
-var schedule = require('node-schedule');
+let { scheduleJob } = require('node-schedule');
 
-var source = require(path.join(__dirname, './source'));
+let { start } = require(path.join(__dirname, './source'));
 
 module.exports = function(sources) {
-    sources.forEach(function(item, i) {
-        schedule.scheduleJob(item.schedules, function() {
-            source.start(item.title);
+    sources.forEach((item, i)=> {
+        scheduleJob(item.schedules, ()=> {
+            start(item.title);
         });
-    }, this);
+    });
 }

@@ -1,18 +1,16 @@
 
-var path = require('path');
-
-var schedule = require('node-schedule');
+let path = require('path');
 
 require(path.join(__dirname, 'global'));
 
-var sourceModel = require(path.join(__dirname, 'models/schedule'));
+let { getAll } = require(path.join(__dirname, 'models/schedule'));
 
-var App = path.join(ROOT,'app');
+let App = path.join(ROOT,'app');
 
 function main() {
 	console.log('程序开始，获取定时数据');
 
-	sourceModel.getAll().then(function(source) {
+	getAll().then(function(source) {
 		var data = {};
 		source.forEach(function(item) {
 			if (data[item.type]) {
